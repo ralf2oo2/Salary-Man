@@ -16,20 +16,26 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] public LayerMask targetMask;
     [SerializeField] public LayerMask obstructionMask;
 
-    public event Action OnAlerted;
-
-    private float alertnessThreshold = 40;
-    private bool alerted = false;
-
-    private Hashtable visibleObjects = new Hashtable();
-    private Dictionary<int, float> alertness;
-
-
+    private Hashtable visibleTargets = new Hashtable();
 
     void Start()
     {
-        alertness = new Dictionary<int, float>();
         StartCoroutine(FOVRoutine());
+    }
+
+    public bool CanSeeTarget(int targetInstanceId)
+    {
+        return visibleTargets.Keys.Cast<int>().Contains(targetInstanceId);
+    }
+
+    public int VisibleTargetCount()
+    {
+        return visibleTargets.Count;
+    }
+
+    public int[] getVisibleTargets()
+    {
+        return visibleTargets.Keys.Cast<int>().ToArray();
     }
 
     private IEnumerator FOVRoutine()
@@ -47,29 +53,17 @@ public class FieldOfView : MonoBehaviour
 
     private void AddVisibleObject(Collider collider)
     {
-        if (visibleObjects.ContainsKey(collider.GetInstanceID())) return;
-        visibleObjects.Add(collider.GetInstanceID(), collider);
-        if (alertness.ContainsKey(collider.GetInstanceID())) return;
-        alertness.Add(collider.GetInstanceID(), 0);
-    }
-
-    public bool CanSeeObject()
-    {
-        return visibleObjects.Count > 0;
-    }
-
-    public int[] getVisibleObjects()
-    {
-        return visibleObjects.Keys.Cast<int>().ToArray();
+        if (visibleTargets.ContainsKey(collider.GetInstanceID())) return;
+        visibleTargets.Add(collider.GetInstanceID(), collider);
     }
 
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
 
-        foreach (int instanceId in visibleObjects.Keys.Cast<int>().Where(item => rangeChecks.Where(x => x.GetInstanceID() == item).FirstOrDefault() == null))
+        foreach (int instanceId in visibleTargets.Keys.Cast<int>().Where(item => rangeChecks.Where(x => x.GetInstanceID() == item).FirstOrDefault() == null))
         {
-            visibleObjects.Remove(instanceId);
+            visibleTargets.Remove(instanceId);
         }
 
 
@@ -85,62 +79,21 @@ public class FieldOfView : MonoBehaviour
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
                     if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                     {
-                        if (!visibleObjects.Contains(collider.GetInstanceID()))
+                        if (!visibleTargets.Contains(collider.GetInstanceID()))
                         {
                             AddVisibleObject(collider);
                         }
                     }
-                    else if (visibleObjects.Contains(collider.GetInstanceID()))
+                    else if (visibleTargets.Contains(collider.GetInstanceID()))
                     {
-                        visibleObjects.Remove(collider.GetInstanceID());
+                        visibleTargets.Remove(collider.GetInstanceID());
                     }
                 }
-                else if (visibleObjects.Contains(collider.GetInstanceID()))
+                else if (visibleTargets.Contains(collider.GetInstanceID()))
                 {
-                    visibleObjects.Remove(collider.GetInstanceID());
+                    visibleTargets.Remove(collider.GetInstanceID());
                 }
             }
         }
-    }
-
-    private void UpdateAlertness()
-    {
-        List<int> toBeRemoved = new List<int>();
-        int[] keys = alertness.Keys.ToArray();
-        foreach (int key in keys)
-        {
-            if (visibleObjects.ContainsKey(key))
-            {
-                alertness[key] += 10 * Time.deltaTime;
-            }
-            else
-            {
-                alertness[key] -= 10 * Time.deltaTime;
-            }
-            if (alertness[key] < 0)
-            {
-                alertness.Remove(key);
-            }
-            if (alertness[key] > alertnessThreshold && !alerted)
-            {
-                OnAlerted();
-                alerted = true;
-            }
-            Debug.Log(alertness[key] + "");
-        }
-        if(toBeRemoved.Count > 0)
-        {
-            foreach(int key in toBeRemoved)
-            {
-                alertness.Remove(key);
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateAlertness();
-        //Debug.Log(visibleObjects.Count);
     }
 }

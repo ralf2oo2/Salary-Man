@@ -21,10 +21,10 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewingAngle01 * fov.radius);
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewingAngle02 * fov.radius);
 
-        if (fov.CanSeeObject())
+        if (fov.VisibleTargetCount() > 0)
         {
             Handles.color = Color.green;
-            foreach(int objectId in fov.getVisibleObjects())
+            foreach(int objectId in fov.getVisibleTargets())
             {
                 Collider gameObject = (Collider)EditorUtility.InstanceIDToObject(objectId);
                 if (gameObject != null)
