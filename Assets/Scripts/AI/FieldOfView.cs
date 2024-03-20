@@ -11,7 +11,9 @@ public class FieldOfView : MonoBehaviour
 {
     [SerializeField] public float radius;
     [Range(0, 360)]
-    [SerializeField] public float angle;
+    [SerializeField] public float angleWidth;
+    [Range(0, 360)]
+    [SerializeField] public float angleHeight;
 
     [SerializeField] public LayerMask targetMask;
     [SerializeField] public LayerMask obstructionMask;
@@ -36,6 +38,11 @@ public class FieldOfView : MonoBehaviour
     public int[] getVisibleTargets()
     {
         return visibleTargets.Keys.Cast<int>().ToArray();
+    }
+
+    public object GetVisibleTarget(int targetInstanceId)
+    {
+        return visibleTargets[targetInstanceId];
     }
 
     private IEnumerator FOVRoutine()
@@ -74,7 +81,7 @@ public class FieldOfView : MonoBehaviour
                 Transform target = collider.transform;
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-                if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2) 
+                if (Vector3.Angle(transform.forward, directionToTarget) < angleWidth / 2)
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
                     if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))

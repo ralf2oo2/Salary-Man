@@ -14,8 +14,8 @@ public class FieldOfViewEditor : Editor
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
 
-        Vector3 viewingAngle01 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
-        Vector3 viewingAngle02 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angle / 2);
+        Vector3 viewingAngle01 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angleWidth / 2);
+        Vector3 viewingAngle02 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angleWidth / 2);
 
         Handles.color = Color.yellow;
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewingAngle01 * fov.radius);

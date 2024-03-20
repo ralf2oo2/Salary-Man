@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class EnemyAwareness : MonoBehaviour
 {
-    public event Action OnAlerted;
+    public event Action<System.Object> OnAlerted;
 
     FieldOfView fieldOfView;
 
     private Dictionary<int, float> awareness;
-    private float alertnessThreshold = 40;
+    private float awarenessThreshold = 40;
     private bool alerted = false;
 
     void Start()
@@ -49,16 +49,23 @@ public class EnemyAwareness : MonoBehaviour
             {
                 awareness[key] -= 10 * Time.deltaTime;
             }
+            if (awareness[key] > awarenessThreshold && !alerted)
+            {
+                alerted = true;
+                Debug.Log("alerted!");
+                if(OnAlerted != null)
+                {
+                    OnAlerted(fieldOfView.GetVisibleTarget(key));
+                }
+            }
+            if (!alerted)
+            {
+                Debug.Log(awareness[key]);
+            }
             if (awareness[key] < 0)
             {
                 awareness.Remove(key);
             }
-            if (awareness[key] > alertnessThreshold && !alerted)
-            {
-                OnAlerted();
-                alerted = true;
-            }
-            Debug.Log(awareness[key]);
         }
     }
 }
