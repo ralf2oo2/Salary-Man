@@ -11,9 +11,7 @@ public class FieldOfView : MonoBehaviour
 {
     [SerializeField] public float radius;
     [Range(0, 360)]
-    [SerializeField] public float angleWidth;
-    [Range(0, 360)]
-    [SerializeField] public float angleHeight;
+    [SerializeField] public float angle;
 
     [SerializeField] public LayerMask targetMask;
     [SerializeField] public LayerMask obstructionMask;
@@ -68,9 +66,13 @@ public class FieldOfView : MonoBehaviour
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
 
-        foreach (int instanceId in visibleTargets.Keys.Cast<int>().Where(item => rangeChecks.Where(x => x.GetInstanceID() == item).FirstOrDefault() == null))
+        List<int> visibleTargetInstanceIds = visibleTargets.Keys.Cast<int>().ToList();
+
+        foreach (int instanceId in visibleTargetInstanceIds.Where(item => rangeChecks.Where(x => x.GetInstanceID() == item).FirstOrDefault() == null))
         {
-            visibleTargets.Remove(instanceId);
+            if (visibleTargets.Contains(instanceId)){
+                visibleTargets.Remove(instanceId);
+            }
         }
 
 
@@ -81,7 +83,7 @@ public class FieldOfView : MonoBehaviour
                 Transform target = collider.transform;
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-                if (Vector3.Angle(transform.forward, directionToTarget) < angleWidth / 2)
+                if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
                     if(!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))

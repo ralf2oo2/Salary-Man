@@ -11,14 +11,13 @@ public class EnemyAwareness : MonoBehaviour
 
     FieldOfView fieldOfView;
 
-    private Dictionary<int, float> awareness;
+    private Dictionary<int, float> awareness = new Dictionary<int, float>();
     private float awarenessThreshold = 40;
     private bool alerted = false;
 
     void Start()
     {
         fieldOfView = GetComponent<FieldOfView>();
-        awareness = new Dictionary<int, float>();
     }
 
     void Update()
