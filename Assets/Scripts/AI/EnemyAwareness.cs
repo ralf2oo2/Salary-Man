@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(FieldOfView))]
 
@@ -12,7 +13,7 @@ public class EnemyAwareness : MonoBehaviour
     FieldOfView fieldOfView;
 
     private Dictionary<int, float> awareness = new Dictionary<int, float>();
-    private float awarenessThreshold = 40;
+    private float awarenessThreshold = 20;
     private bool alerted = false;
 
     void Start()
@@ -23,6 +24,16 @@ public class EnemyAwareness : MonoBehaviour
     void Update()
     {
         UpdateAlertness();
+    }
+
+    public int AwareTargetCount()
+    {
+        return awareness.Count;
+    }
+
+    public bool IsAlerted()
+    {
+        return alerted;
     }
 
     private void UpdateAlertness()
