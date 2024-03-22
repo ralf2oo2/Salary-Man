@@ -19,7 +19,9 @@ public class EnemyPatrolling : MonoBehaviour
     {
         if (transform.position != points[current].position)
         {
-            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, points[current].position, speed * Time.deltaTime);
         }
+        else
+            current = (current + 1) % points.Length;
     }
 }
