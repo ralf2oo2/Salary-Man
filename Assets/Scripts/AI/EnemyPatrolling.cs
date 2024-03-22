@@ -23,5 +23,7 @@ public class EnemyPatrolling : MonoBehaviour
         }
         else
             current = (current + 1) % points.Length;
+        Vector3 pos = points[current].position;
+        transform.LookAt(new Vector3(pos.x, transform.position.y, pos.z), Vector3.up);
     }
 }
