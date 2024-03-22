@@ -8,22 +8,40 @@ using UnityEngine;
 
 public class EnemyAwareness : MonoBehaviour
 {
+    public static List<EnemyAwareness> globalAwareness = new List<EnemyAwareness>();
+    public static float awarenessThreshold = 20;
+
     public event Action<System.Object> OnAlerted;
 
     FieldOfView fieldOfView;
 
     private Dictionary<int, float> awareness = new Dictionary<int, float>();
-    private float awarenessThreshold = 20;
     private bool alerted = false;
 
     void Start()
     {
+        globalAwareness.Add(this);
         fieldOfView = GetComponent<FieldOfView>();
     }
 
     void Update()
     {
         UpdateAlertness();
+    }
+
+    public static float GetGlobalPlayerAwareness()
+    {
+        return globalAwareness.Max(x => x.GetPlayerAwareness());
+    }
+
+    public float GetPlayerAwareness()
+    {
+        int playerInstanceId = GameObject.Find("Player").GetComponent<Collider>().GetInstanceID();
+        if (awareness.ContainsKey(playerInstanceId))
+        {
+            return awareness[playerInstanceId];
+        }
+        return 0;
     }
 
     public int AwareTargetCount()
@@ -70,7 +88,7 @@ public class EnemyAwareness : MonoBehaviour
             }
             if (!alerted)
             {
-                Debug.Log(awareness[key]);
+                //Debug.Log(awareness[key]);
             }
             if (awareness[key] < 0)
             {
