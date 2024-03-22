@@ -9,7 +9,7 @@ using UnityEngine;
 public class EnemyAwareness : MonoBehaviour
 {
     public static List<EnemyAwareness> globalAwareness = new List<EnemyAwareness>();
-    public static float awarenessThreshold = 20;
+    public static float awarenessThreshold = 10;
 
     public event Action<System.Object> OnAlerted;
 
@@ -39,7 +39,9 @@ public class EnemyAwareness : MonoBehaviour
         int playerInstanceId = GameObject.Find("Player").GetComponent<Collider>().GetInstanceID();
         if (awareness.ContainsKey(playerInstanceId))
         {
-            return awareness[playerInstanceId];
+            float playerAwareness = awareness[playerInstanceId];
+            if(playerAwareness > 100) playerAwareness = 100;
+            return playerAwareness;
         }
         return 0;
     }
@@ -69,13 +71,17 @@ public class EnemyAwareness : MonoBehaviour
 
         foreach (int key in awareTargets)
         {
-            if (fieldOfView.CanSeeTarget(key))
+            if (!alerted)
             {
-                awareness[key] += 10 * Time.deltaTime;
-            }
-            else
-            {
-                awareness[key] -= 10 * Time.deltaTime;
+                if (fieldOfView.CanSeeTarget(key))
+                {
+                    awareness[key] += 10 * Time.deltaTime;
+                    if (awareness[key] > 100) awareness[key] = 100;
+                }
+                else
+                {
+                    awareness[key] -= 10 * Time.deltaTime;
+                }
             }
             if (awareness[key] > awarenessThreshold && !alerted)
             {

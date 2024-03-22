@@ -15,6 +15,6 @@ public class EnemyAwarenessIndicator : MonoBehaviour
     void Update()
     {
         var tmp = GetComponent<TextMeshProUGUI>();
-        tmp.text = (EnemyAwareness.GetGlobalPlayerAwareness() / EnemyAwareness.awarenessThreshold * 100).ToString("0");
+        tmp.text = (EnemyAwareness.GetGlobalPlayerAwareness() / EnemyAwareness.awarenessThreshold * 100).ToString("0") +"%";
     }
 }
