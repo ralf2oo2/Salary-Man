@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.radiatoryang.scopa": {
+      "version": "https://github.com/radiatoryang/scopa.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0dc0787b42b340b057267cf8faa8488ed037b6cc"
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,
