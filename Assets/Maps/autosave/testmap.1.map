@@ -1,0 +1,12 @@
+// Game: Quake
+// Format: Standard
+// entity 0
+{
+"wad" "Wads\QUAKE101.WAD"
+"classname" "worldspawn"
+}
+// entity 1
+{
+"classname" "info_player_start"
+"origin" "0 0 40"
+}
