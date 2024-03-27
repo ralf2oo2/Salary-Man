@@ -15,5 +15,5 @@ ScriptedImporter:
     anisoLevel: 1
     generateMaterials: 1
     opaqueTemplate: {fileID: 2100000, guid: 706036d0bde2ee34cbf35597f06a563b, type: 2}
-    alphaTemplate: {fileID: 2100000, guid: 7ceda7c25f902c54785834983ff1d533, type: 2}
+    alphaTemplate: {fileID: 2100000, guid: 706036d0bde2ee34cbf35597f06a563b, type: 2}
     atlasSize: 4
