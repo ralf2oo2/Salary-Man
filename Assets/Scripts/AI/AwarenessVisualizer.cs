@@ -21,6 +21,7 @@ public class AwarenessVisualizer : MonoBehaviour
         billboard.GetComponent<Renderer>().material = Resources.Load("Materials/Billboard") as Material;
         billboard.transform.parent = anchor.transform;
         billboard.transform.localPosition = new Vector3(0, verticalOffset, 0);
+        billboard.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 
 
         suspiciousTexture = Resources.Load<Texture2D>("Textures/Interface/suspicious");

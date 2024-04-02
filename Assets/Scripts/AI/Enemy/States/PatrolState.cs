@@ -13,7 +13,8 @@ public class PatrolState : EnemyBaseState
 
     public override void OnEnter()
     {
-        
+        animator.CrossFade(walkFwdHash, crossFadeDuration);
+        enemy.Agent.speed = 1;
     }
 
     public override void FixedUpdate()

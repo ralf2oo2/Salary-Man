@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class EnemyAwareness : MonoBehaviour
 {
     public static List<EnemyAwareness> globalAwareness = new List<EnemyAwareness>();
-    public static float awarenessThreshold = 4;
+    public static float awarenessThreshold = 20;
 
     public event Action<System.Object> OnAlerted;
 
@@ -89,8 +89,6 @@ public class EnemyAwareness : MonoBehaviour
             {
                 alerted = true;
                 Debug.Log("alerted!");
-                string currentSceneName = SceneManager.GetActiveScene().name;
-                SceneManager.LoadScene(currentSceneName);
 
                 if (OnAlerted != null)
                 {

@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 
     private StateMachine stateMachine;
     private NavMeshAgent agent;
+    private EnemyAwareness enemyAwareness;
     public NavMeshAgent Agent { get { return agent; } }
     public PatrolRoute patrolRoute;
 
@@ -20,8 +21,15 @@ public class Enemy : MonoBehaviour
         stateMachine = new StateMachine();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        enemyAwareness = GetComponentInChildren<EnemyAwareness>();
+
         PatrolState patrolState = new PatrolState(this, animator);
-        Any(patrolState, new FuncPredicate(() => true));
+        ChaseState chaseState = new ChaseState(this, animator);
+        IdleState idleState = new IdleState(this, animator);
+
+        At(patrolState, chaseState, new FuncPredicate(() => enemyAwareness.IsAlerted()));
+        At(chaseState, patrolState, new FuncPredicate(() => !enemyAwareness.IsAlerted()));
+
         stateMachine.SetState(patrolState);
     }
 
