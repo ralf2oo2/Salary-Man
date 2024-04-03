@@ -9,8 +9,9 @@ public class GunData : ScriptableObject
     public new string name;
 
     [Header("Shooting")]
-    public float damage;
     public float maxDistance;
+    public float shootForce;
+    public float spread;
 
     [Header("Reloading")]
     public int currentAmmo;

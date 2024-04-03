@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private EnemyAwareness enemyAwareness;
     private FieldOfView fov;
+    private Health health;
+
+    private bool isAlive = true;
     public NavMeshAgent Agent { get { return agent; } }
     public PatrolRoute patrolRoute;
 
@@ -24,16 +27,24 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemyAwareness = GetComponentInChildren<EnemyAwareness>();
         fov = GetComponentInChildren<FieldOfView>();
+        health = GetComponentInChildren<Health>();
+
+        health.OnDeath += () =>
+        {
+            isAlive = false;
+        };
 
         PatrolState patrolState = new PatrolState(this, animator);
         ChaseState chaseState = new ChaseState(this, animator);
         AttackState attackState = new AttackState(this, animator);
         IdleState idleState = new IdleState(this, animator);
+        DeadState deadState = new DeadState(this, animator);
 
         At(patrolState, chaseState, new FuncPredicate(() => enemyAwareness.IsAlerted()));
         At(chaseState, patrolState, new FuncPredicate(() => !enemyAwareness.IsAlerted()));
         At(chaseState, attackState, new FuncPredicate(() => fov.CanSeePlayer()));
         At(attackState, chaseState, new FuncPredicate(() => !fov.CanSeePlayer()));
+        Any(deadState, new FuncPredicate(() => !isAlive));
 
         stateMachine.SetState(patrolState);
     }
