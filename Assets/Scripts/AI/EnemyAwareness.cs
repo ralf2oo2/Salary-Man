@@ -36,9 +36,14 @@ public class EnemyAwareness : MonoBehaviour
         return globalAwareness.Max(x => x.GetPlayerAwareness());
     }
 
+    public int GetPlayerInstanceId()
+    {
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>().GetInstanceID();
+    }
+
     public float GetPlayerAwareness()
     {
-        int playerInstanceId = GameObject.Find("Player").GetComponent<Collider>().GetInstanceID();
+        int playerInstanceId = GetPlayerInstanceId();
         if (awareness.ContainsKey(playerInstanceId))
         {
             float playerAwareness = awareness[playerInstanceId];
@@ -77,7 +82,34 @@ public class EnemyAwareness : MonoBehaviour
             {
                 if (fieldOfView.CanSeeTarget(key))
                 {
-                    awareness[key] += 10 * Time.deltaTime;
+                    float visionMultiplier = 10;
+                    if(key == GetPlayerInstanceId())
+                    {
+                        float distance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
+                        float distanceModifier = fieldOfView.radius - distance;
+                        distanceModifier += distanceModifier * 0.5f;
+                        distanceModifier *= 0.2f;
+
+
+
+                        if (distanceModifier < 1) distanceModifier = 1;
+
+
+                        Debug.Log(distanceModifier);
+
+                        visionMultiplier *= distanceModifier;
+
+                        PlayerCrouching crouching = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCrouching>();
+                        if (crouching.IsCrouching)
+                        {
+                            visionMultiplier *= 0.2f;
+                        }
+                        if(distance < 2f)
+                        {
+                            awareness[key] = 100;
+                        }
+                    }
+                    awareness[key] += visionMultiplier * Time.deltaTime;
                     if (awareness[key] > 100) awareness[key] = 100;
                 }
                 else

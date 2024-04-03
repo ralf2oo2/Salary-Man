@@ -16,7 +16,7 @@ public class PlayerCrouching : MonoBehaviour
     float currentHeight;
     float standingHeight;
 
-    bool IsCrouching => standingHeight - currentHeight > 0.1f;
+    public bool IsCrouching => standingHeight - currentHeight > 0.1f;
 
     void Awake()
     {
