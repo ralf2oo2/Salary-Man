@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAwarenessIndicator : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class EnemyAwarenessIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float awareness = (EnemyAwareness.GetGlobalPlayerAwareness() / EnemyAwareness.awarenessThreshold * 100);
+        if (awareness > 100) awareness = 100;
         var tmp = GetComponent<TextMeshProUGUI>();
-        tmp.text = (EnemyAwareness.GetGlobalPlayerAwareness() / EnemyAwareness.awarenessThreshold * 100).ToString("0") +"%";
+        tmp.text = awareness.ToString("0") +"%";
     }
 }
