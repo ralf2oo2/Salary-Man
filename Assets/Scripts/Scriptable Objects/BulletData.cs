@@ -61,7 +61,7 @@ public class BulletData : MonoBehaviour
 
             GameObject bulletHole = Instantiate(bulletHolePrefab, collisionPoint - (collisionNormal * 0.2f), Quaternion.LookRotation(collisionNormal, Vector3.up) * bulletHolePrefab.transform.rotation);
 
-            bulletHole.transform.SetParent(bulletHoleContainer.transform);
+            bulletHole.transform.SetParent(collision.gameObject.transform);
             bulletHole.transform.Rotate(Vector3.forward, Random.Range(0f, 360f));
 
             Destroy(bulletHole, 30);
