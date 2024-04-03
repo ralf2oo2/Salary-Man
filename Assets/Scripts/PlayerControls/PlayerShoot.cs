@@ -6,12 +6,9 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     public static Action shootInput;
+    public static Action reloadInput;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private KeyCode reloadKey;
 
     // Update is called once per frame
     private void Update()
@@ -19,6 +16,11 @@ public class PlayerShoot : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             shootInput?.Invoke();
+        }
+
+        if (Input.GetKeyDown(reloadKey)) 
+        {
+            reloadInput?.Invoke();
         }
     }
 }
