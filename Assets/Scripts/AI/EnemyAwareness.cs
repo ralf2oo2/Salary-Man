@@ -128,10 +128,6 @@ public class EnemyAwareness : MonoBehaviour
 
                     }
                     awareness[key] += visionMultiplier * Time.deltaTime;
-                    if(key != GetPlayerInstanceId())
-                    {
-                        Debug.Log(awareness[key]);
-                    }
                     if (awareness[key] > 100) awareness[key] = 100;
                 }
                 else
@@ -152,7 +148,6 @@ public class EnemyAwareness : MonoBehaviour
                 else
                 {
                     suspicious = true;
-                    Debug.Log("sus");
                 }
             }
             if (!alerted)

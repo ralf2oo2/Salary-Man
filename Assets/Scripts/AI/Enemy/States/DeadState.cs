@@ -14,6 +14,7 @@ public class DeadState : EnemyBaseState
         enemy.Agent.SetDestination(enemy.transform.position);
         audioSource.clip = deathClip;
         audioSource.Play();
+        enemy.RemoveAwareness();
     }
 
     public override void FixedUpdate()

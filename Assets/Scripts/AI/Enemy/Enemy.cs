@@ -77,4 +77,8 @@ public class Enemy : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Target");
     }
+    public void RemoveAwareness()
+    {
+        Destroy(enemyAwareness);
+    }
 }

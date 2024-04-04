@@ -153,7 +153,8 @@ AudioSource:
   m_GameObject: {fileID: 4875460350221436449}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5257130879615098742, guid: 6a9ef071fb57ad94482ac043f1194f90,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 57fe7c7f935745e4ba0ab3a01cfe5be9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -200,7 +201,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -612,7 +613,8 @@ AudioSource:
   m_GameObject: {fileID: 8991839184931654625}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2541618504565291883, guid: 6a9ef071fb57ad94482ac043f1194f90,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -659,7 +661,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -773,6 +775,11 @@ PrefabInstance:
       value: 240.19699
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 5f8d6840f929e68488652e14f0bde3dc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02ae2abea4c82a94ba417fcb69a2303e, type: 2}
+    - target: {fileID: -7344831442079598882, guid: 5f8d6840f929e68488652e14f0bde3dc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

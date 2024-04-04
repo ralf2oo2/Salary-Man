@@ -10,6 +10,8 @@ public class BulletData : MonoBehaviour
     [SerializeField] float maxLifetime;
     [SerializeField] float damage;
 
+    private AudioSource audioSource;
+
     private Vector3 shootDirection = Vector3.zero;
 
     [SerializeField] LayerMask obstructionMask;
@@ -19,10 +21,11 @@ public class BulletData : MonoBehaviour
     {
         shootDirection = direction;
     }
-    
-    private void Setup()
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     private void Update()
@@ -63,6 +66,12 @@ public class BulletData : MonoBehaviour
 
             bulletHole.transform.SetParent(collision.gameObject.transform);
             bulletHole.transform.Rotate(Vector3.forward, Random.Range(0f, 360f));
+
+            AudioSource audioSourceClone = bulletHole.AddComponent<AudioSource>();
+            audioSourceClone.pitch = Random.Range(0.8f, 1.2f);
+            audioSourceClone.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+            audioSource.spatialBlend = audioSource.spatialBlend;
+            audioSourceClone.Play();
 
             Destroy(bulletHole, 30);
         }
