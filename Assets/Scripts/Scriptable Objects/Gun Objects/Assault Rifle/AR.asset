@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Assault Rifle
   maxDistance: 200
   shootForce: 100
-  spread: 1
+  spread: 0.2
   currentAmmo: 0
   magSize: 31
   fireRate: 600

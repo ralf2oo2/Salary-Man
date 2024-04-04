@@ -5,6 +5,7 @@ public abstract class EnemyBaseState : IState
 {
     protected readonly Enemy enemy;
     protected readonly Animator animator;
+    protected readonly AudioSource audioSource;
 
     protected static readonly int walkFwdHash = Animator.StringToHash("WalkFWD");
     protected static readonly int runFwdHash = Animator.StringToHash("RunFWD");
@@ -14,10 +15,11 @@ public abstract class EnemyBaseState : IState
 
     protected const float crossFadeDuration = 0.1f;
 
-    public EnemyBaseState(Enemy enemy, Animator animator)
+    public EnemyBaseState(Enemy enemy, Animator animator, AudioSource audioSource)
     {
         this.enemy = enemy;
         this.animator = animator;
+        this.audioSource = audioSource;
     }
 
     public virtual void FixedUpdate()

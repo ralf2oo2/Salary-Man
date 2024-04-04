@@ -6,7 +6,7 @@ public class PatrolState : EnemyBaseState
 {
     public int waypointIndex;
 
-    public PatrolState(Enemy enemy, Animator animator) : base(enemy, animator)
+    public PatrolState(Enemy enemy, Animator animator, AudioSource audioSource) : base(enemy, animator, audioSource)
     {
 
     }

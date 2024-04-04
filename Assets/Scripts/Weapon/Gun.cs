@@ -5,21 +5,26 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GunData gunData;
-    [SerializeField] private Transform muzzle;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] public GunData gunData;
+    [SerializeField] protected Transform muzzle;
+    [SerializeField] protected GameObject bullet;
 
-    float timeSinceLastShot;
+    protected AudioSource audioSource;
+
+    protected float timeSinceLastShot;
 
     // Start is called before the first frame update
     private void Start()
     {
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
+        audioSource = GetComponentInChildren<AudioSource>();
+        gunData.reloading = false;
     }
 
     public void StartReload()
     {
+        Debug.Log("tried to reload");
         if (!gunData.reloading)
         {
             StartCoroutine(Reload());
@@ -28,6 +33,7 @@ public class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
+        Debug.Log("Reloading");
         gunData.reloading = true;
 
         yield return new WaitForSeconds(gunData.reloadTime);
@@ -37,14 +43,17 @@ public class Gun : MonoBehaviour
         gunData.reloading = false;
     }
 
-    private bool CanShoot() => !gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    protected bool CanShoot() => !gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
-    public void Shoot()
+    public virtual void Shoot()
     {
+        Debug.Log("tried to shoot");
         if (gunData.currentAmmo > 0)
         {
+            Debug.Log("has ammo");
             if (CanShoot()) 
             {
+                Debug.Log("can shoot");
                 Vector3 targetPoint;
                 if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance)) 
                 {
@@ -73,6 +82,7 @@ public class Gun : MonoBehaviour
                 currentBullet.GetComponent<BulletData>().SetShootDirection(muzzle.transform.forward);
                 gunData.currentAmmo--;
                 timeSinceLastShot = 0;
+                audioSource.PlayOneShot(audioSource.clip);
                 OnGunShot();
             }
         }
@@ -86,7 +96,7 @@ public class Gun : MonoBehaviour
         Debug.DrawRay(muzzle.position, muzzle.forward);
     }
 
-    private void OnGunShot()
+    protected void OnGunShot()
     {
 
     }

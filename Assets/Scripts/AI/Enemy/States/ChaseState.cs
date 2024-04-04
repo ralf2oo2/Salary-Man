@@ -3,7 +3,7 @@ using UnityEngine;
 public class ChaseState : EnemyBaseState
 {
     GameObject player;
-    public ChaseState(Enemy enemy, Animator animator) : base(enemy, animator)
+    public ChaseState(Enemy enemy, Animator animator, AudioSource audioSource) : base(enemy, animator , audioSource)
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }

@@ -20,7 +20,7 @@ public class GunData : ScriptableObject
     public float reloadTime;
 
     [HideInInspector]
-    public bool reloading;
+    public bool reloading = false;
 
     // Start is called before the first frame update
     void Start()

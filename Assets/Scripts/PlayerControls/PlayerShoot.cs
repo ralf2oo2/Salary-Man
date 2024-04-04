@@ -25,13 +25,11 @@ public class PlayerShoot : MonoBehaviour
     {
         if (shootAction.ReadValue<float>() > 0)
         {
-            Debug.Log("Shoot");
             shootInput?.Invoke();
         }
 
         if (reloadAction.ReadValue<float>() > 0) 
         {
-            Debug.Log("Reload");
             reloadInput?.Invoke();
         }
     }

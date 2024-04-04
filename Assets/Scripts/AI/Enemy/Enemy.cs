@@ -3,17 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
     private Animator animator;
+    [SerializeField] private AudioSource audioSource;
 
     private StateMachine stateMachine;
     private NavMeshAgent agent;
     private EnemyAwareness enemyAwareness;
     private FieldOfView fov;
     private Health health;
+    private RigBuilder rigBuilder;
+
+    private Gun gun;
 
     private bool isAlive = true;
     public NavMeshAgent Agent { get { return agent; } }
@@ -28,17 +33,21 @@ public class Enemy : MonoBehaviour
         enemyAwareness = GetComponentInChildren<EnemyAwareness>();
         fov = GetComponentInChildren<FieldOfView>();
         health = GetComponentInChildren<Health>();
+        rigBuilder = GetComponentInChildren<RigBuilder>();
+        gun = GetComponentInChildren<Gun>();
+
+        rigBuilder.enabled = false;
 
         health.OnDeath += () =>
         {
             isAlive = false;
         };
 
-        PatrolState patrolState = new PatrolState(this, animator);
-        ChaseState chaseState = new ChaseState(this, animator);
-        AttackState attackState = new AttackState(this, animator);
-        IdleState idleState = new IdleState(this, animator);
-        DeadState deadState = new DeadState(this, animator);
+        PatrolState patrolState = new PatrolState(this, animator, audioSource);
+        ChaseState chaseState = new ChaseState(this, animator, audioSource);
+        AttackState attackState = new AttackState(this, animator, audioSource, rigBuilder, gun);
+        IdleState idleState = new IdleState(this, animator, audioSource);
+        DeadState deadState = new DeadState(this, animator, audioSource);
 
         At(patrolState, chaseState, new FuncPredicate(() => enemyAwareness.IsAlerted()));
         At(chaseState, patrolState, new FuncPredicate(() => !enemyAwareness.IsAlerted()));

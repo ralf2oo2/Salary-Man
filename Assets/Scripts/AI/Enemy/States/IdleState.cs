@@ -2,7 +2,7 @@
 
 public class IdleState : EnemyBaseState
 {
-    public IdleState(Enemy enemy, Animator animator) : base(enemy, animator)
+    public IdleState(Enemy enemy, Animator animator, AudioSource audioSource) : base(enemy, animator, audioSource)
     {
         
     }

@@ -2,15 +2,18 @@
 
 public class DeadState : EnemyBaseState
 {
-    public DeadState(Enemy enemy, Animator animator) : base(enemy, animator)
+    private AudioClip deathClip;
+    public DeadState(Enemy enemy, Animator animator, AudioSource audioSource) : base(enemy, animator, audioSource)
     {
-
+        deathClip = Resources.Load<AudioClip>("Sound/GuardDeath");
     }
 
     public override void OnEnter()
     {
         animator.CrossFade(deadHash, crossFadeDuration);
         enemy.Agent.SetDestination(enemy.transform.position);
+        audioSource.clip = deathClip;
+        audioSource.Play();
     }
 
     public override void FixedUpdate()
