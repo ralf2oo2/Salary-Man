@@ -12,6 +12,7 @@ public class ChaseState : EnemyBaseState
     {
         animator.CrossFade(runFwdHash, crossFadeDuration);
         enemy.Agent.speed = 3;
+        enemy.setAsTarget();
     }
 
     public override void FixedUpdate()

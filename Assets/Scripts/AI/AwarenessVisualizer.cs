@@ -31,12 +31,12 @@ public class AwarenessVisualizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyAwareness.AwareTargetCount() > 0 && !enemyAwareness.IsAlerted())
+        if (enemyAwareness.AwareTargetCount() > 0 && !enemyAwareness.IsAlerted() && !enemyAwareness.IsSuspicious())
         {
             billboard.GetComponent<Renderer>().material.SetTexture("_MainTex", suspiciousTexture);
             billboard.GetComponent<Renderer>().enabled = true;
         }
-        else if (enemyAwareness.IsAlerted())
+        else if (enemyAwareness.IsAlerted() || enemyAwareness.IsSuspicious())
         {
             billboard.GetComponent<Renderer>().material.SetTexture("_MainTex", alertTexture);
             billboard.GetComponent<Renderer>().enabled = true;

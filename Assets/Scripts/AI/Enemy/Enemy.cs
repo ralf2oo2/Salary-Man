@@ -72,4 +72,9 @@ public class Enemy : MonoBehaviour
     {
         stateMachine.FixedUpdate();
     }
+
+    public void setAsTarget()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Target");
+    }
 }

@@ -24,7 +24,6 @@ public class Gun : MonoBehaviour
 
     public void StartReload()
     {
-        Debug.Log("tried to reload");
         if (!gunData.reloading)
         {
             StartCoroutine(Reload());
@@ -33,7 +32,6 @@ public class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        Debug.Log("Reloading");
         gunData.reloading = true;
 
         yield return new WaitForSeconds(gunData.reloadTime);
@@ -47,15 +45,13 @@ public class Gun : MonoBehaviour
 
     public virtual void Shoot()
     {
-        Debug.Log("tried to shoot");
         if (gunData.currentAmmo > 0)
         {
-            Debug.Log("has ammo");
             if (CanShoot()) 
             {
-                Debug.Log("can shoot");
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
                 Vector3 targetPoint;
-                if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance)) 
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, gunData.maxDistance)) 
                 {
                     targetPoint = hitInfo.point;
                     /*IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
@@ -63,7 +59,7 @@ public class Gun : MonoBehaviour
                 }
                 else
                 {
-                    targetPoint = muzzle.position + muzzle.forward * 75;
+                    targetPoint = ray.GetPoint(75);
                 }
 
                 Vector3 directionWithoutSpread = targetPoint - muzzle.position;

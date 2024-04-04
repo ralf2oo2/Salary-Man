@@ -5,14 +5,11 @@ public class NpcGun : Gun
     public override void Shoot()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log("tried to shoot");
         if (gunData.currentAmmo > 0)
         {
-            Debug.Log("has ammo");
             if (CanShoot())
             {
-                Vector3 raycastDir = player.transform.position - muzzle.transform.position;
-                Debug.Log("can shoot");
+                Vector3 raycastDir = player.transform.position - muzzle.transform.position;;
                 Vector3 targetPoint;
                 if (Physics.Raycast(muzzle.position, raycastDir, out RaycastHit hitInfo, gunData.maxDistance))
                 {

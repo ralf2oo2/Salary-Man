@@ -19,6 +19,7 @@ public class EnemyAwareness : MonoBehaviour
 
     private Dictionary<int, float> awareness = new Dictionary<int, float>();
     private bool alerted = false;
+    private bool suspicious = false;
 
     void Start()
     {
@@ -63,6 +64,11 @@ public class EnemyAwareness : MonoBehaviour
         return alerted;
     }
 
+    public bool IsSuspicious()
+    {
+        return suspicious;
+    }
+
     private void UpdateAlertness()
     {
 
@@ -104,12 +110,28 @@ public class EnemyAwareness : MonoBehaviour
                         {
                             visionMultiplier *= 0.2f;
                         }
-                        if(distance < 2f)
+                        if (distance < 2f || suspicious)
                         {
                             awareness[key] = 100;
                         }
                     }
+                    else
+                    {
+                        float distance = Vector3.Distance(transform.position, (fieldOfView.GetVisibleTarget(key) as Collider).transform.position);
+                        float distanceModifier = fieldOfView.radius - distance;
+                        distanceModifier += distanceModifier * 0.5f;
+                        distanceModifier *= 0.2f;
+
+                        if (distanceModifier < 1) distanceModifier = 1;
+
+                        visionMultiplier *= distanceModifier;
+
+                    }
                     awareness[key] += visionMultiplier * Time.deltaTime;
+                    if(key != GetPlayerInstanceId())
+                    {
+                        Debug.Log(awareness[key]);
+                    }
                     if (awareness[key] > 100) awareness[key] = 100;
                 }
                 else
@@ -119,12 +141,18 @@ public class EnemyAwareness : MonoBehaviour
             }
             if (awareness[key] > awarenessThreshold && !alerted)
             {
-                alerted = true;
-                Debug.Log("alerted!");
-
-                if (OnAlerted != null)
+                if(key == GetPlayerInstanceId())
                 {
-                    OnAlerted(fieldOfView.GetVisibleTarget(key));
+                    alerted = true;
+                    if (OnAlerted != null)
+                    {
+                        OnAlerted(fieldOfView.GetVisibleTarget(key));
+                    }
+                }
+                else
+                {
+                    suspicious = true;
+                    Debug.Log("sus");
                 }
             }
             if (!alerted)
