@@ -79,6 +79,6 @@ public class Enemy : MonoBehaviour
     }
     public void RemoveAwareness()
     {
-        Destroy(enemyAwareness);
+        //Destroy(enemyAwareness);
     }
 }

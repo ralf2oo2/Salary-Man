@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     internal float movementSpeedMultiplier;
 
     CharacterController controller;
+    Health health;
     internal Vector3 velocity;
     Vector2 look;
 
@@ -38,8 +40,16 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        health = GetComponent<Health>();
         moveAction = playerInput.actions["move"];
         lookAction = playerInput.actions["look"];
+        health.OnDeath += OnDeath;
+    }
+
+    private void OnDeath()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 
     private void Start()
