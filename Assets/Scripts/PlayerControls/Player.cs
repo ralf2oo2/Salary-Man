@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         health = GetComponent<Health>();
         moveAction = playerInput.actions["move"];
         lookAction = playerInput.actions["look"];
-        health.OnDeath += OnDeath;
     }
 
     private void OnDeath()
@@ -62,6 +61,11 @@ public class Player : MonoBehaviour
         UpdateGravity();
         UpdateMovement();
         UpdateLook();
+
+        if(health.health < 0)
+        {
+            OnDeath();
+        }
     }
 
     void UpdateGround()
