@@ -1,34 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class playerRaycast : MonoBehaviour
 {
-    public GameObject crosshair;
-    public float interactionDistance;
-    public LayerMask layers;
+    [SerializeField]
+    private TextMeshPro UseText;
+    [SerializeField]
+    private Transform Camera;
+    [SerializeField]
+    private float MaxUseDistance = 5f;
+    [SerializeField]
+    private LayerMask UseLayers;
 
-    void Update()
+    public void OnUse()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, interactionDistance, layers))
+        if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayers))
         {
-            if (hit.collider.gameObject.GetComponent<door>())
+            if (hit.collider.TryGetComponent<door>(out door door))
             {
-                crosshair.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
+                if (door.IsOpen)
                 {
-                    hit.collider.gameObject.GetComponent<door>().openClose();
+                    door.Close();
                 }
+                else
+                {
+                    door.Open(transform.position);
+                }
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayers)
+            && hit.collider.TryGetComponent<door>(out door door))
+        {
+            if (door.IsOpen)
+            {
+                UseText.SetText("Close \"E\"");
             }
             else
             {
-                crosshair.SetActive(false);
+                UseText.SetText("Open \"E\"");
             }
+            UseText.gameObject.SetActive(true);
+            UseText.transform.position = hit.point - (hit.point - Camera.position).normalized * 0.01f;
+            UseText.transform.rotation = Quaternion.LookRotation((hit.point - Camera.position).normalized);
         }
         else
         {
-            crosshair.SetActive(false);
+            UseText.gameObject.SetActive(false);
         }
     }
 }
