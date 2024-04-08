@@ -4,8 +4,8 @@ using UnityEngine.Animations.Rigging;
 public class AttackState : EnemyBaseState
 {
     private RigBuilder rigBuilder;
-    private Gun gun;
-    public AttackState(Enemy enemy, Animator animator, AudioSource audioSource, RigBuilder rigBuilder, Gun gun) : base(enemy, animator, audioSource)
+    private NpcGun gun;
+    public AttackState(Enemy enemy, Animator animator, AudioSource audioSource, RigBuilder rigBuilder, NpcGun gun) : base(enemy, animator, audioSource)
     {
         this.rigBuilder = rigBuilder;
         this.gun = gun;
@@ -32,7 +32,7 @@ public class AttackState : EnemyBaseState
     {
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         enemy.transform.LookAt(new Vector3(playerPos.x, enemy.transform.position.y, playerPos.z));
-        if(gun.gunData.currentAmmo > 0)
+        if(gun.currentAmmo > 0)
         {
             gun.Shoot();
         }

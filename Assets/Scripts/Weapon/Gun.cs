@@ -9,6 +9,9 @@ public class Gun : MonoBehaviour
     [SerializeField] protected Transform muzzle;
     [SerializeField] protected GameObject bullet;
 
+    private int currentAmmo;
+    private bool reloading = false;
+
     protected AudioSource audioSource;
 
     protected float timeSinceLastShot;
@@ -19,12 +22,11 @@ public class Gun : MonoBehaviour
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
         audioSource = GetComponentInChildren<AudioSource>();
-        gunData.reloading = false;
     }
 
     public void StartReload()
     {
-        if (!gunData.reloading)
+        if (!reloading)
         {
             StartCoroutine(Reload());
         }
@@ -32,20 +34,20 @@ public class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        gunData.reloading = true;
+        reloading = true;
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        gunData.currentAmmo = gunData.magSize;
+        currentAmmo = gunData.magSize;
 
-        gunData.reloading = false;
+        reloading = false;
     }
 
-    protected bool CanShoot() => !gunData.reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    protected bool CanShoot() => !reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
     public virtual void Shoot()
     {
-        if (gunData.currentAmmo > 0)
+        if (currentAmmo > 0)
         {
             if (CanShoot()) 
             {
@@ -76,10 +78,11 @@ public class Gun : MonoBehaviour
                 currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
                 currentBullet.GetComponent<BulletData>().isBase = false;
                 currentBullet.GetComponent<BulletData>().SetShootDirection(muzzle.transform.forward);
-                gunData.currentAmmo--;
+                currentAmmo--;
                 timeSinceLastShot = 0;
                 audioSource.PlayOneShot(audioSource.clip);
                 OnGunShot();
+                Debug.Log("shot callewd" + currentAmmo);
             }
         }
     }

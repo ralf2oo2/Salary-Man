@@ -101,7 +101,6 @@ public class EnemyAwareness : MonoBehaviour
                         if (distanceModifier < 1) distanceModifier = 1;
 
 
-                        Debug.Log(distanceModifier);
 
                         visionMultiplier *= distanceModifier;
 

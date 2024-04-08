@@ -47,8 +47,8 @@ public class Player : MonoBehaviour
 
     private void OnDeath()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        /*string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);*/
     }
 
     private void Start()

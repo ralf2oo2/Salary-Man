@@ -14,23 +14,7 @@ public class GunData : ScriptableObject
     public float spread;
 
     [Header("Reloading")]
-    public int currentAmmo;
     public int magSize;
     public float fireRate;
     public float reloadTime;
-
-    [HideInInspector]
-    public bool reloading = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

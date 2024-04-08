@@ -1,11 +1,64 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-public class NpcGun : Gun
+public class NpcGun : MonoBehaviour
 {
-    public override void Shoot()
+    [Header("References")]
+    [SerializeField] public GunData gunData;
+    [SerializeField] protected Transform muzzle;
+    [SerializeField] protected GameObject bullet;
+
+    [HideInInspector]
+    public int currentAmmo;
+    private bool reloading = false;
+
+    protected AudioSource audioSource;
+
+    protected float timeSinceLastShot;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        audioSource = GetComponentInChildren<AudioSource>();
+    }
+
+    public void StartReload()
+    {
+        if (!reloading)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator Reload()
+    {
+        reloading = true;
+
+        yield return new WaitForSeconds(gunData.reloadTime);
+
+        currentAmmo = gunData.magSize;
+
+        reloading = false;
+    }
+
+    protected bool CanShoot() => !reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+
+    // Update is called once per frame
+    void Update()
+    {
+        timeSinceLastShot += Time.deltaTime;
+
+        Debug.DrawRay(muzzle.position, muzzle.forward);
+    }
+
+    protected void OnGunShot()
+    {
+
+    }
+    public void Shoot()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (gunData.currentAmmo > 0)
+        if (currentAmmo > 0)
         {
             if (CanShoot())
             {
@@ -36,10 +89,11 @@ public class NpcGun : Gun
                 currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
                 currentBullet.GetComponent<BulletData>().isBase = false;
                 currentBullet.GetComponent<BulletData>().SetShootDirection(muzzle.transform.forward);
-                gunData.currentAmmo--;
+                currentAmmo--;
                 timeSinceLastShot = 0;
                 audioSource.PlayOneShot(audioSource.clip);
                 OnGunShot();
+                Debug.Log("npc shoot");
             }
         }
     }

@@ -47,13 +47,11 @@ public class BulletData : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.collider.CompareTag("Bullet")) return;
         if(collision.gameObject.GetComponent<Health>() != null)
         {
             Health health = collision.gameObject.GetComponent<Health>();
             health.health -= damage;
-            Debug.Log("hit someone " + health);
         }
         else
         {

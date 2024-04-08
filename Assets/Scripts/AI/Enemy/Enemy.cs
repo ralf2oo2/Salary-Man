@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     private Health health;
     private RigBuilder rigBuilder;
 
-    private Gun gun;
+    private NpcGun gun;
 
     private bool isAlive = true;
     public NavMeshAgent Agent { get { return agent; } }
@@ -34,14 +34,9 @@ public class Enemy : MonoBehaviour
         fov = GetComponentInChildren<FieldOfView>();
         health = GetComponentInChildren<Health>();
         rigBuilder = GetComponentInChildren<RigBuilder>();
-        gun = GetComponentInChildren<Gun>();
+        gun = GetComponentInChildren<NpcGun>();
 
         rigBuilder.enabled = false;
-
-        health.OnDeath += () =>
-        {
-            isAlive = false;
-        };
 
         PatrolState patrolState = new PatrolState(this, animator, audioSource);
         ChaseState chaseState = new ChaseState(this, animator, audioSource);
@@ -66,6 +61,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
+        if (health.health < 0)
+        {
+            isAlive = false;
+        }
     }
 
     private void FixedUpdate()
