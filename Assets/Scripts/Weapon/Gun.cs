@@ -96,6 +96,23 @@ public class Gun : MonoBehaviour
                 OnGunShot();
                 Debug.Log("shot callewd" + currentAmmo);
                 triggerUp = false;
+                if (gunData.loud)
+                {
+                    LoudGunShot();
+                }
+            }
+        }
+    }
+
+    private void LoudGunShot()
+    {
+        Collider[] rangeChecks = Physics.OverlapSphere(muzzle.position, 30);
+        foreach (Collider collider in rangeChecks)
+        {
+            if (collider.gameObject.GetComponentInChildren<EnemyAwareness>() != null)
+            {
+                EnemyAwareness awareness = collider.gameObject.GetComponentInChildren<EnemyAwareness>();
+                awareness.MakeSuspicious();
             }
         }
     }

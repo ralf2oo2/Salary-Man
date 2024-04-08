@@ -17,6 +17,7 @@ MonoBehaviour:
   shootForce: 100
   spread: 0.1
   automatic: 0
+  loud: 0
   magSize: 16
   fireRate: 600
   reloadTime: 2

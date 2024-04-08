@@ -37,6 +37,11 @@ public class EnemyAwareness : MonoBehaviour
         return globalAwareness.Max(x => x.GetPlayerAwareness());
     }
 
+    public void MakeSuspicious()
+    {
+        suspicious = true;
+    }
+
     public int GetPlayerInstanceId()
     {
         return GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>().GetInstanceID();
