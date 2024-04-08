@@ -27,7 +27,6 @@ public class ChaseState : EnemyBaseState
 
     public override void Update()
     {
-        Debug.Log("teest");
         enemy.Agent.SetDestination(player.transform.position);
     }
 }

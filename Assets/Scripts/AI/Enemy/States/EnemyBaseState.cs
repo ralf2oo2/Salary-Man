@@ -8,6 +8,7 @@ public abstract class EnemyBaseState : IState
     protected readonly AudioSource audioSource;
 
     protected static readonly int walkFwdHash = Animator.StringToHash("WalkFWD");
+    protected static readonly int walkFwdSusHash = Animator.StringToHash("WalkFWDSus");
     protected static readonly int runFwdHash = Animator.StringToHash("RunFWD");
     protected static readonly int idleHash = Animator.StringToHash("Idle");
     protected static readonly int rifleAimHash = Animator.StringToHash("RifleAim");

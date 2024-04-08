@@ -93,7 +93,6 @@ public class NpcGun : MonoBehaviour
                 timeSinceLastShot = 0;
                 audioSource.PlayOneShot(audioSource.clip);
                 OnGunShot();
-                Debug.Log("npc shoot");
                 if (gunData.loud)
                 {
                     LoudGunShot();
@@ -111,6 +110,7 @@ public class NpcGun : MonoBehaviour
             {
                 EnemyAwareness awareness = collider.gameObject.GetComponentInChildren<EnemyAwareness>();
                 awareness.MakeSuspicious();
+                collider.gameObject.GetComponent<Enemy>().SetSuspiciousPoint(muzzle.position);
             }
         }
     }
