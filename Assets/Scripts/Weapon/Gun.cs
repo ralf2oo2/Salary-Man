@@ -12,6 +12,8 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
     private bool reloading = false;
 
+    private bool triggerUp = false;
+
     protected AudioSource audioSource;
 
     protected float timeSinceLastShot;
@@ -21,7 +23,13 @@ public class Gun : MonoBehaviour
     {
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
+        PlayerShoot.triggerUpInput += TriggerUp;
         audioSource = GetComponentInChildren<AudioSource>();
+    }
+
+    public void TriggerUp()
+    {
+        triggerUp = true;
     }
 
     public void StartReload()
@@ -47,6 +55,10 @@ public class Gun : MonoBehaviour
 
     public virtual void Shoot()
     {
+        if(!triggerUp && !gunData.automatic)
+        {
+            return;
+        }
         if (currentAmmo > 0)
         {
             if (CanShoot()) 
@@ -83,6 +95,7 @@ public class Gun : MonoBehaviour
                 audioSource.PlayOneShot(audioSource.clip);
                 OnGunShot();
                 Debug.Log("shot callewd" + currentAmmo);
+                triggerUp = false;
             }
         }
     }

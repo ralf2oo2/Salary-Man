@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58bd2fe7d9da1e3488082e81950e7b69, type: 3}
-  m_Name: AR
+  m_Name: SilencedPistol
   m_EditorClassIdentifier: 
-  name: Assault Rifle
+  name: Silenced Pistol
   maxDistance: 200
   shootForce: 100
-  spread: 0.2
-  automatic: 1
-  magSize: 31
+  spread: 0.1
+  automatic: 0
+  magSize: 16
   fireRate: 600
-  reloadTime: 1.5
+  reloadTime: 2

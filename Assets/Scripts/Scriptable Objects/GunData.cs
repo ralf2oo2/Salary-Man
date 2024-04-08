@@ -12,6 +12,7 @@ public class GunData : ScriptableObject
     public float maxDistance;
     public float shootForce;
     public float spread;
+    public bool automatic;
 
     [Header("Reloading")]
     public int magSize;

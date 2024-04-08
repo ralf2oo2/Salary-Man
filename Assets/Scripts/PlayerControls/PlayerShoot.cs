@@ -9,6 +9,7 @@ public class PlayerShoot : MonoBehaviour
     PlayerInput playerInput; 
     public static Action shootInput;
     public static Action reloadInput;
+    public static Action triggerUpInput;
 
     private InputAction shootAction;
     private InputAction reloadAction;
@@ -26,6 +27,10 @@ public class PlayerShoot : MonoBehaviour
         if (shootAction.ReadValue<float>() > 0)
         {
             shootInput?.Invoke();
+        }
+        else
+        {
+            triggerUpInput?.Invoke();
         }
 
         if (reloadAction.ReadValue<float>() > 0) 

@@ -1208,7 +1208,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 57fe7c7f935745e4ba0ab3a01cfe5be9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1d11a69bdaf868944ba2d17dc741a488, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2742,7 +2742,7 @@ GameObject:
   - component: {fileID: 1487110218}
   - component: {fileID: 1487110219}
   m_Layer: 0
-  m_Name: Assault Rifle
+  m_Name: Silenced Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2777,7 +2777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e11e59817a6e3146b8d36b3bab6688f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData: {fileID: 11400000, guid: 8a98e9b49ebd98a4bad61e5f9dedad0f, type: 2}
+  gunData: {fileID: 11400000, guid: 6183d56a365f83d4eb8707e22451b2b3, type: 2}
   muzzle: {fileID: 1595147224}
   bullet: {fileID: 8268553208813457709, guid: c4c9eadede33db148ae9ca46dfc8279c, type: 3}
 --- !u!1 &1595147223
