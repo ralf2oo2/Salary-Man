@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] AudioClip reloadStartClip;
     [SerializeField] AudioClip reloadEndClip;
     private int currentAmmo;
-    private int ammoReserve = 300;
+    private int ammoReserve = 30;
 
     private bool reloading = false;
 
@@ -54,7 +54,7 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        int bulletsToFill = ammoReserve - currentAmmo;
+        int bulletsToFill = gunData.magSize - currentAmmo;
 
         if(ammoReserve - bulletsToFill < 0)
         {

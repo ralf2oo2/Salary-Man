@@ -16,6 +16,17 @@ public class playerRaycast : MonoBehaviour
 
     public void OnUse()
     {
+        if (PlayerPickupManager.HasPickupItem())
+        {
+            GameObject pickupItem = PlayerPickupManager.GetPickupItem();
+            pickupItem.transform.parent = null;
+            Rigidbody rb = pickupItem.AddComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.AddForce(Camera.forward * 200);
+            PlayerPickupManager.SetPickupItem(null);
+            Debug.Log("throw");
+        }
         if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayers))
         {
             if (hit.collider.TryGetComponent<door>(out door door))
@@ -28,6 +39,10 @@ public class playerRaycast : MonoBehaviour
                 {
                     door.Open(transform.position);
                 }
+            }
+            else if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable))
+            {
+                interactable.Interract();
             }
         }
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4830511241027800335}
   - component: {fileID: 4576556898299094813}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silenced Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1977607106932530593}
   - component: {fileID: 363538691749511678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +142,7 @@ Transform:
   m_Children:
   - {fileID: 8274146931889942962}
   - {fileID: 1072382814223169828}
+  - {fileID: 6997679292491380916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &7455186338417212639
@@ -290,7 +291,7 @@ MonoBehaviour:
   MaxUseDistance: 5
   UseLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!114 &8909395725756651922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ GameObject:
   - component: {fileID: 5469398940049584180}
   - component: {fileID: 3029546572250504020}
   - component: {fileID: 1711921245177313681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -594,7 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7618922058089531563}
   - component: {fileID: 7567976067047538989}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunSounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +626,8 @@ AudioSource:
   m_GameObject: {fileID: 4038973716946812441}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 482776163632705503, guid: 6a9ef071fb57ad94482ac043f1194f90,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 1d11a69bdaf868944ba2d17dc741a488, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -712,6 +714,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &5320374512861953213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6997679292491380916}
+  m_Layer: 6
+  m_Name: ItemHolder
+  m_TagString: ItemHolder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6997679292491380916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5320374512861953213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.416, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 193423854529200418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7945336119802583465
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7225845677016206807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,10 +881,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 26b8f94f73ea77740adf5e4c1524844b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 26b8f94f73ea77740adf5e4c1524844b,
         type: 3}
       propertyPath: m_Name
       value: silencergun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26b8f94f73ea77740adf5e4c1524844b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666608221097560260, guid: 26b8f94f73ea77740adf5e4c1524844b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,6 +1,7 @@
 using Platformer;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -76,8 +77,13 @@ public class Enemy : MonoBehaviour
             isAlive = false;
             capsuleCollider.enabled = false;
             agent.height = 0;
+            agent.updatePosition = false;
+            agent.updateRotation = false;
             deadBodyCollider.enabled = true;
             awarenessVisualizer.enabled = false;
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
