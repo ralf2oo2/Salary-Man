@@ -9,6 +9,8 @@ public class AwarenessVisualizer : MonoBehaviour
     [SerializeField] public GameObject anchor;
     [SerializeField] public float verticalOffset = 2;
 
+    internal bool enabled = true;
+
     private EnemyAwareness enemyAwareness;
     private GameObject billboard;
     private Texture suspiciousTexture;
@@ -37,12 +39,12 @@ public class AwarenessVisualizer : MonoBehaviour
         {
             Destroy(this);
         }
-        if (enemyAwareness.AwareTargetCount() > 0 && !enemyAwareness.IsAlerted() && !enemyAwareness.IsSuspicious())
+        if (enemyAwareness.AwareTargetCount() > 0 && !enemyAwareness.IsAlerted() && !enemyAwareness.IsSuspicious() && enabled)
         {
             billboard.GetComponent<Renderer>().material.SetTexture("_MainTex", suspiciousTexture);
             billboard.GetComponent<Renderer>().enabled = true;
         }
-        else if (enemyAwareness.IsAlerted() || enemyAwareness.IsSuspicious())
+        else if (enemyAwareness.IsAlerted() && enabled || enemyAwareness.IsSuspicious() && enabled)
         {
             billboard.GetComponent<Renderer>().material.SetTexture("_MainTex", alertTexture);
             billboard.GetComponent<Renderer>().enabled = true;

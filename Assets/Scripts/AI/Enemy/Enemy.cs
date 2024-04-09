@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private StateMachine stateMachine;
     private NavMeshAgent agent;
     private EnemyAwareness enemyAwareness;
+    private AwarenessVisualizer awarenessVisualizer;
     private FieldOfView fov;
     private Health health;
     private RigBuilder rigBuilder;
@@ -35,6 +36,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemyAwareness = GetComponentInChildren<EnemyAwareness>();
+        awarenessVisualizer = GetComponentInChildren<AwarenessVisualizer>();
         fov = GetComponentInChildren<FieldOfView>();
         health = GetComponentInChildren<Health>();
         rigBuilder = GetComponentInChildren<RigBuilder>();
@@ -75,6 +77,7 @@ public class Enemy : MonoBehaviour
             capsuleCollider.enabled = false;
             agent.height = 0;
             deadBodyCollider.enabled = true;
+            awarenessVisualizer.enabled = false;
         }
     }
 
