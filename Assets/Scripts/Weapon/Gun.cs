@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
     [SerializeField] AudioClip reloadStartClip;
     [SerializeField] AudioClip reloadEndClip;
     private int currentAmmo;
+    private int ammoReserve = 300;
+
     private bool reloading = false;
 
     private bool triggerUp = false;
@@ -28,6 +30,9 @@ public class Gun : MonoBehaviour
         PlayerShoot.reloadInput += StartReload;
         PlayerShoot.triggerUpInput += TriggerUp;
     }
+
+    public int CurrentAmmo => currentAmmo;
+    public int AmmoReserve => ammoReserve;
 
     public void TriggerUp()
     {
@@ -49,7 +54,15 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        currentAmmo = gunData.magSize;
+        if(ammoReserve - gunData.magSize < 0)
+        {
+            currentAmmo = ammoReserve;
+        }
+        else
+        {
+            ammoReserve -= gunData.magSize;
+            currentAmmo = gunData.magSize;
+        }
 
         reloading = false;
         gunAudioSource.PlayOneShot(reloadEndClip);
