@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private BoxCollider deadBodyCollider;
 
     private StateMachine stateMachine;
     private NavMeshAgent agent;
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private FieldOfView fov;
     private Health health;
     private RigBuilder rigBuilder;
+    private CapsuleCollider capsuleCollider;
 
     private NpcGun gun;
 
@@ -37,6 +39,7 @@ public class Enemy : MonoBehaviour
         health = GetComponentInChildren<Health>();
         rigBuilder = GetComponentInChildren<RigBuilder>();
         gun = GetComponentInChildren<NpcGun>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         rigBuilder.enabled = false;
 
@@ -66,9 +69,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
-        if (health.health < 0)
+        if (health.health < 0 && isAlive)
         {
             isAlive = false;
+            capsuleCollider.enabled = false;
+            agent.height = 0;
+            deadBodyCollider.enabled = true;
         }
     }
 

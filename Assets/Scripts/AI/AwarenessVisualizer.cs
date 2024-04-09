@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAwareness))]
@@ -17,7 +18,7 @@ public class AwarenessVisualizer : MonoBehaviour
     {
         enemyAwareness = GetComponent<EnemyAwareness>();
 
-        billboard = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        billboard = PrimitiveHelper.CreatePrimitive(PrimitiveType.Quad, false);
         billboard.GetComponent<Renderer>().material = Resources.Load("Materials/Billboard") as Material;
         billboard.transform.parent = anchor.transform;
         billboard.transform.localPosition = new Vector3(0, verticalOffset, 0);
