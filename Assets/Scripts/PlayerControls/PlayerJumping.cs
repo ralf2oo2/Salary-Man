@@ -57,5 +57,6 @@ public class PlayerJumping : MonoBehaviour
     void OnGroundStateChange(bool isGrounded)
     {
         if (!isGrounded) lastGroundedTime = Time.time;
+        player.PlayStepSound();
     }
 }

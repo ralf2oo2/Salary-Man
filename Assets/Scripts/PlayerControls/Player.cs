@@ -10,6 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float mass = 1f;
     [SerializeField] float acceleration = 20f;
+
+    [SerializeField] float baseStepSpeed = 0.5f;
+    [SerializeField] AudioSource footstepAudioSource;
+    [SerializeField] AudioClip[] footstepAudioClips;
+    private float footstepTimer = 0;
+    internal float stepSpeed;
+
     public Transform cameraTransform;
 
     public bool IsGrounded => controller.isGrounded;
@@ -97,6 +104,7 @@ public class Player : MonoBehaviour
     void UpdateMovement()
     {
         movementSpeedMultiplier = 1f;
+        stepSpeed = baseStepSpeed;
         OnBeforeMove?.Invoke();
 
         var input = GetMovementInput();
@@ -106,6 +114,7 @@ public class Player : MonoBehaviour
         velocity.z = Mathf.Lerp(velocity.z, input.z, factor);
 
         controller.Move(velocity * Time.deltaTime);
+        HandleFootsteps(stepSpeed);
     }
 
     void UpdateLook()
@@ -118,5 +127,23 @@ public class Player : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(-look.y, 0, 0);
         transform.localRotation = Quaternion.Euler(0, look.x, 0);
+    }
+
+    void HandleFootsteps(float stepSpeed)
+    {
+        if (!controller.isGrounded) return;
+        if (controller.velocity == Vector3.zero) return;
+        footstepTimer -= Time.deltaTime;
+
+        if(footstepTimer <= 0)
+        {
+            PlayStepSound();
+            footstepTimer = stepSpeed;
+        }
+    }
+
+    public void PlayStepSound()
+    {
+        footstepAudioSource.PlayOneShot(footstepAudioClips[UnityEngine.Random.Range(0, footstepAudioClips.Length - 1)]);
     }
 }
