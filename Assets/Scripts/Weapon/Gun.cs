@@ -54,13 +54,15 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        if(ammoReserve - gunData.magSize < 0)
+        int bulletsToFill = ammoReserve - currentAmmo;
+
+        if(ammoReserve - bulletsToFill < 0)
         {
             currentAmmo = ammoReserve;
         }
         else
         {
-            ammoReserve -= gunData.magSize;
+            ammoReserve -= bulletsToFill;
             currentAmmo = gunData.magSize;
         }
 
