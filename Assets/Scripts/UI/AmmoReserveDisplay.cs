@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
-public class AmmoDisplay : MonoBehaviour
+public class AmmoReserveDisplay : MonoBehaviour
 {
     TextMeshProUGUI tmp;
     Gun gun;
@@ -19,6 +18,6 @@ public class AmmoDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tmp.text = gun.CurrentAmmo.ToString();
+        tmp.text = gun.AmmoReserve.ToString();
     }
 }

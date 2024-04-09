@@ -525,6 +525,10 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 6183d56a365f83d4eb8707e22451b2b3, type: 2}
   muzzle: {fileID: 317615034}
   bullet: {fileID: 8268553208813457709, guid: c4c9eadede33db148ae9ca46dfc8279c, type: 3}
+  gunAudioSource: {fileID: 0}
+  shootClip: {fileID: 0}
+  reloadStartClip: {fileID: 0}
+  reloadEndClip: {fileID: 0}
 --- !u!1 &458544339
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,6 +959,7 @@ MonoBehaviour:
   crouchHeight: 1
   crouchTransitionSpeed: 10
   crouchSpeedMultiplier: 0.5
+  crouchStepMultiplier: 1.5
 --- !u!114 &867895075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,6 +988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMultiplier: 2
+  sprintStepMultiplier: 0.6
 --- !u!114 &867895077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,6 +1036,9 @@ MonoBehaviour:
   movementSpeed: 5
   mass: 1
   acceleration: 20
+  baseStepSpeed: 0.5
+  footstepAudioSource: {fileID: 0}
+  footstepAudioClips: []
   cameraTransform: {fileID: 1185993840}
 --- !u!143 &867895079
 CharacterController:
@@ -1235,8 +1244,9 @@ GameObject:
   - component: {fileID: 971345363}
   - component: {fileID: 971345365}
   - component: {fileID: 971345364}
+  - component: {fileID: 971345366}
   m_Layer: 5
-  m_Name: Ammo (1)
+  m_Name: AmmoReserve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1258,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: -9}
+  m_AnchoredPosition: {x: 191.7, y: -9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &971345364
@@ -1315,7 +1325,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1358,6 +1368,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971345362}
   m_CullTransparentMesh: 1
+--- !u!114 &971345366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971345362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1eea9e9124bdf42a1ebd308492bf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1185993839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,6 +1529,7 @@ GameObject:
   - component: {fileID: 1249564188}
   - component: {fileID: 1249564190}
   - component: {fileID: 1249564189}
+  - component: {fileID: 1249564191}
   m_Layer: 5
   m_Name: Ammo
   m_TagString: Untagged
@@ -1630,6 +1653,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249564187}
   m_CullTransparentMesh: 1
+--- !u!114 &1249564191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249564187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3857bc30dfa8ac74fab3499714e3f85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1502382725
 GameObject:
   m_ObjectHideFlags: 0
