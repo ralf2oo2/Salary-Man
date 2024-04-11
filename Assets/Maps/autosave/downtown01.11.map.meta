@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a679e5be8e013e44398091dc78bb3fa2
+guid: 616d18588d5e7964f852e8e6aded888a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ ScriptedImporter:
     staticEntities:
     - worldspawn
     - func_wall
-    layer: 7
+    layer: 0
     castShadows: 2
     addScopaEntityComponent: 1
     callOnEntityImport: 1
