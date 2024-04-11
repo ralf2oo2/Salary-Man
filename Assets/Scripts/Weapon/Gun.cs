@@ -59,6 +59,7 @@ public class Gun : MonoBehaviour
         if(ammoReserve - bulletsToFill < 0)
         {
             currentAmmo = ammoReserve;
+            ammoReserve = 0;
         }
         else
         {
