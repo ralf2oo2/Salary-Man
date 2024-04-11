@@ -6,8 +6,6 @@ using UnityEngine;
 public class playerRaycast : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshPro UseText;
-    [SerializeField]
     private Transform Camera;
     [SerializeField]
     private float MaxUseDistance = 5f;
@@ -49,24 +47,6 @@ public class playerRaycast : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayers)
-            && hit.collider.TryGetComponent<door>(out door door))
-        {
-            if (door.IsOpen)
-            {
-                UseText.SetText("Close \"E\"");
-            }
-            else
-            {
-                UseText.SetText("Open \"E\"");
-            }
-            UseText.gameObject.SetActive(true);
-            UseText.transform.position = hit.point - (hit.point - Camera.position).normalized * 0.01f;
-            UseText.transform.rotation = Quaternion.LookRotation((hit.point - Camera.position).normalized);
-        }
-        else
-        {
-            UseText.gameObject.SetActive(false);
-        }
+
     }
 }
