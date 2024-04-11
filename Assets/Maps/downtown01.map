@@ -1,0 +1,16 @@
+// Game: Quake
+// Format: Standard
+// entity 0
+{
+"wad" "Wads\resources.wad"
+"classname" "worldspawn"
+// brush 0
+{
+( 0 -128 -32 ) ( 0 -127 -32 ) ( 0 -128 -31 ) prototype00013 0 0 0 1 1
+( 0 -192 -32 ) ( 0 -192 -31 ) ( 1 -192 -32 ) prototype00013 0 0 0 1 1
+( 0 -128 -32 ) ( 1 -128 -32 ) ( 0 -127 -32 ) prototype00013 0 0 0 1 1
+( 128 0 0 ) ( 128 1 0 ) ( 129 0 0 ) prototype00013 0 0 0 1 1
+( 128 0 0 ) ( 129 0 0 ) ( 128 0 1 ) prototype00013 0 0 0 1 1
+( 928 0 0 ) ( 928 0 1 ) ( 928 1 0 ) prototype00013 0 0 0 1 1
+}
+}

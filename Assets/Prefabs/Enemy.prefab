@@ -122,6 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7895867983123063621}
   - component: {fileID: 8435859503897713712}
+  - component: {fileID: 36553717721323748}
+  - component: {fileID: 6169695359178540034}
   m_Layer: 6
   m_Name: DeadCollision
   m_TagString: Untagged
@@ -157,14 +159,38 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.5, z: 2}
-  m_Center: {x: 0, y: 0, z: 0.2}
+  m_Size: {x: 1, y: 0.3, z: 2}
+  m_Center: {x: 0, y: 0.09, z: 0.2}
+--- !u!114 &36553717721323748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045935309789184165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6169695359178540034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045935309789184165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c03208a786013840bb56590d6fb234c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3754146931725539385
 GameObject:
   m_ObjectHideFlags: 0

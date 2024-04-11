@@ -66,6 +66,7 @@ public class BulletData : MonoBehaviour
             bulletHole.transform.Rotate(Vector3.forward, Random.Range(0f, 360f));
 
             AudioSource audioSourceClone = bulletHole.AddComponent<AudioSource>();
+            audioSourceClone.transform.parent = bulletHole.transform;
             audioSourceClone.pitch = Random.Range(0.8f, 1.2f);
             audioSourceClone.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
             audioSource.spatialBlend = audioSource.spatialBlend;

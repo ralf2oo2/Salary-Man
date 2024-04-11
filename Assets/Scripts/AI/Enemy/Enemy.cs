@@ -1,6 +1,7 @@
 using Platformer;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
     private StateMachine stateMachine;
     private NavMeshAgent agent;
     private EnemyAwareness enemyAwareness;
+    private AwarenessVisualizer awarenessVisualizer;
     private FieldOfView fov;
     private Health health;
     private RigBuilder rigBuilder;
@@ -35,6 +37,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemyAwareness = GetComponentInChildren<EnemyAwareness>();
+        awarenessVisualizer = GetComponentInChildren<AwarenessVisualizer>();
         fov = GetComponentInChildren<FieldOfView>();
         health = GetComponentInChildren<Health>();
         rigBuilder = GetComponentInChildren<RigBuilder>();
@@ -74,7 +77,13 @@ public class Enemy : MonoBehaviour
             isAlive = false;
             capsuleCollider.enabled = false;
             agent.height = 0;
+            agent.updatePosition = false;
+            agent.updateRotation = false;
             deadBodyCollider.enabled = true;
+            awarenessVisualizer.enabled = false;
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
