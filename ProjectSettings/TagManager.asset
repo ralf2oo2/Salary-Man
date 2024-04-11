@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - ItemHolder
+  - Code
   layers:
   - Default
   - TransparentFX
