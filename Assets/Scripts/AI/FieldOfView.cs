@@ -28,6 +28,11 @@ public class FieldOfView : MonoBehaviour
         return visibleTargets.Keys.Cast<int>().Contains(targetInstanceId);
     }
 
+    public Collider GetColliderFromInstanceID(int instanceId)
+    {
+        return visibleTargets[instanceId] as Collider;
+    }
+
     public int GetPlayerInstanceId()
     {
         return GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>().GetInstanceID();

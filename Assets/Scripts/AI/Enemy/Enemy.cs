@@ -84,6 +84,7 @@ public class Enemy : MonoBehaviour
             Rigidbody rb = gameObject.AddComponent<Rigidbody>();
             rb.isKinematic = false;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            enemyAwareness.RemoveFromGlobalAwareness();
         }
     }
 

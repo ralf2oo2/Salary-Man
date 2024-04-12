@@ -18,6 +18,8 @@ public class EnemyAwareness : MonoBehaviour
     FieldOfView fieldOfView;
 
     private Dictionary<int, float> awareness = new Dictionary<int, float>();
+    private Dictionary<int, bool> detectionCooldown = new Dictionary<int, bool>();
+    private Dictionary<int, float> prevFrameTime = new Dictionary<int, float>();
     private bool alerted = false;
     private bool suspicious = false;
 
@@ -32,6 +34,11 @@ public class EnemyAwareness : MonoBehaviour
         UpdateAlertness();
     }
 
+    public void RemoveFromGlobalAwareness()
+    {
+        globalAwareness.Remove(this);
+    }
+
     public static float GetGlobalPlayerAwareness()
     {
         return globalAwareness.Max(x => x.GetPlayerAwareness());
@@ -40,6 +47,7 @@ public class EnemyAwareness : MonoBehaviour
     public void MakeSuspicious()
     {
         suspicious = true;
+        Debug.Log("made suspicious");
     }
 
     public int GetPlayerInstanceId()
@@ -74,6 +82,13 @@ public class EnemyAwareness : MonoBehaviour
         return suspicious;
     }
 
+    private IEnumerator StartCooldown(int id, float time)
+    {
+        detectionCooldown[id] = true;
+        yield return new WaitForSeconds(time);
+        detectionCooldown[id] = false;
+    }
+
     private void UpdateAlertness()
     {
 
@@ -85,39 +100,68 @@ public class EnemyAwareness : MonoBehaviour
         foreach (int target in nonAwareTargets)
         {
             awareness.Add(target, 0);
+            detectionCooldown.Add(target, false);
+            prevFrameTime.Add(target, 0f);
         }
 
         foreach (int key in awareTargets)
         {
+            if (detectionCooldown[key] == true) 
+            {
+                continue;
+            }
+            float delta = 0;
+            if (prevFrameTime[key] != 0f) 
+            { 
+                delta = Time.time - prevFrameTime[key];
+            }
+            prevFrameTime[key] = Time.time;
             if (!alerted)
             {
                 if (fieldOfView.CanSeeTarget(key))
                 {
-                    float visionMultiplier = 10;
-                    if(key == GetPlayerInstanceId())
+                    float visionMultiplier = 0;
+                    if(fieldOfView.GetColliderFromInstanceID(key).gameObject.tag == "Player")
                     {
                         float distance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
-                        float distanceModifier = fieldOfView.radius - distance;
-                        distanceModifier += distanceModifier * 0.5f;
-                        distanceModifier *= 0.2f;
+                        //float distanceModifier = fieldOfView.radius - distance;
+                        //distanceModifier += distanceModifier * 0.5f;
+                        //distanceModifier *= 0.2f;
 
 
 
-                        if (distanceModifier < 1) distanceModifier = 1;
+                        //if (distanceModifier < 1) distanceModifier = 1;
 
 
 
-                        visionMultiplier *= distanceModifier;
+                        //visionMultiplier *= distanceModifier;
+
+                        Vector3 directionToTarget = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
+                        float detectionMultiplier = (float)(0.75 * distance / fieldOfView.radius + 0.25 * Vector3.Angle(transform.forward, directionToTarget) / (fieldOfView.angle / 2));
+
+                        float minimumDetectionDelay = 0.2f;
+                        float maximumDetectionDelay = 2.0f;
+
+                        float finalDelay = minimumDetectionDelay + (maximumDetectionDelay - minimumDetectionDelay) * detectionMultiplier;
+                        StartCoroutine(StartCooldown(key, finalDelay));
+
+                        Debug.Log(finalDelay);
+
+                        visionMultiplier = 0;
+
+
+
 
                         PlayerCrouching crouching = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCrouching>();
                         if (crouching.IsCrouching)
                         {
-                            visionMultiplier *= 0.2f;
+                            //visionMultiplier *= 0.2f;
                         }
-                        if (distance < 2f || suspicious)
+                        /*if (distance < 2f || suspicious)
                         {
                             awareness[key] = 100;
-                        }
+                            Debug.Log("seen");
+                        }*/
                     }
                     else
                     {
@@ -129,6 +173,7 @@ public class EnemyAwareness : MonoBehaviour
                         if (distanceModifier < 1) distanceModifier = 1;
 
                         visionMultiplier *= distanceModifier;
+                        Debug.Log("Aware of other thing");
 
                     }
                     awareness[key] += visionMultiplier * Time.deltaTime;
@@ -136,7 +181,7 @@ public class EnemyAwareness : MonoBehaviour
                 }
                 else
                 {
-                    awareness[key] -= 10 * Time.deltaTime;
+                    awareness[key] -= 10 * delta;
                 }
             }
             if (awareness[key] > awarenessThreshold && !alerted)
@@ -161,6 +206,8 @@ public class EnemyAwareness : MonoBehaviour
             if (awareness[key] < 0)
             {
                 awareness.Remove(key);
+                detectionCooldown.Remove(key);
+                prevFrameTime.Remove(key);
             }
         }
     }
