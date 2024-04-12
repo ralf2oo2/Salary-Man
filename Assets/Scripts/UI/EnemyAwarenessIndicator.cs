@@ -19,8 +19,8 @@ public class EnemyAwarenessIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float awareness = (EnemyAwareness.GetGlobalPlayerAwareness() / EnemyAwareness.awarenessThreshold * 100);
-        if (awareness > 100) awareness = 100;
-        rTransform.sizeDelta = new Vector2(rTransform.sizeDelta.x, originalHeight * (awareness / 100));
+        float detection = EnemyAwareness.GetGlobalPlayerDetection();
+        if (detection > 100) detection = 100;
+        rTransform.sizeDelta = new Vector2(rTransform.sizeDelta.x, originalHeight * (detection / 100));
     }
 }

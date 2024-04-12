@@ -20,6 +20,7 @@ public class EnemyAwareness : MonoBehaviour
     private Dictionary<int, float> awareness = new Dictionary<int, float>();
     private Dictionary<int, bool> detectionCooldown = new Dictionary<int, bool>();
     private Dictionary<int, float> prevFrameTime = new Dictionary<int, float>();
+    private Dictionary<int, float> detectionPercentage = new Dictionary<int, float>();
     private bool alerted = false;
     private bool suspicious = false;
 
@@ -39,9 +40,9 @@ public class EnemyAwareness : MonoBehaviour
         globalAwareness.Remove(this);
     }
 
-    public static float GetGlobalPlayerAwareness()
+    public static float GetGlobalPlayerDetection()
     {
-        return globalAwareness.Max(x => x.GetPlayerAwareness());
+        return globalAwareness.Max(x => x.GetPlayerDetection());
     }
 
     public void MakeSuspicious()
@@ -55,14 +56,14 @@ public class EnemyAwareness : MonoBehaviour
         return GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>().GetInstanceID();
     }
 
-    public float GetPlayerAwareness()
+    public float GetPlayerDetection()
     {
         int playerInstanceId = GetPlayerInstanceId();
-        if (awareness.ContainsKey(playerInstanceId))
+        if (detectionPercentage.ContainsKey(playerInstanceId))
         {
-            float playerAwareness = awareness[playerInstanceId];
-            if(playerAwareness > 100) playerAwareness = 100;
-            return playerAwareness;
+            float playerDetection = detectionPercentage[playerInstanceId];
+            if(playerDetection > 100) playerDetection = 100;
+            return playerDetection;
         }
         return 0;
     }
@@ -102,6 +103,7 @@ public class EnemyAwareness : MonoBehaviour
             awareness.Add(target, 0);
             detectionCooldown.Add(target, false);
             prevFrameTime.Add(target, 0f);
+            detectionPercentage.Add(target, 0f);
         }
 
         foreach (int key in awareTargets)
@@ -115,12 +117,13 @@ public class EnemyAwareness : MonoBehaviour
             { 
                 delta = Time.time - prevFrameTime[key];
             }
+            float visionMultiplier = 0;
+            float detectionTime = 0;
             prevFrameTime[key] = Time.time;
             if (!alerted)
             {
                 if (fieldOfView.CanSeeTarget(key))
                 {
-                    float visionMultiplier = 0;
                     if(fieldOfView.GetColliderFromInstanceID(key).gameObject.tag == "Player")
                     {
                         float distance = Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
@@ -142,10 +145,10 @@ public class EnemyAwareness : MonoBehaviour
                         float minimumDetectionDelay = 0.2f;
                         float maximumDetectionDelay = 2.0f;
 
-                        float finalDelay = minimumDetectionDelay + (maximumDetectionDelay - minimumDetectionDelay) * detectionMultiplier;
-                        StartCoroutine(StartCooldown(key, finalDelay));
+                        detectionTime = minimumDetectionDelay + (maximumDetectionDelay - minimumDetectionDelay) * detectionMultiplier;
+                        StartCoroutine(StartCooldown(key, 0.1f));
 
-                        Debug.Log(finalDelay);
+                        Debug.Log(detectionTime);
 
                         visionMultiplier = 0;
 
@@ -176,15 +179,16 @@ public class EnemyAwareness : MonoBehaviour
                         Debug.Log("Aware of other thing");
 
                     }
-                    awareness[key] += visionMultiplier * Time.deltaTime;
-                    if (awareness[key] > 100) awareness[key] = 100;
+                    awareness[key] += delta;
+                    detectionPercentage[key] = awareness[key] / detectionTime * 100;
+                    if (detectionPercentage[key] > 100) detectionPercentage[key] = 100;
                 }
                 else
                 {
                     awareness[key] -= 10 * delta;
                 }
             }
-            if (awareness[key] > awarenessThreshold && !alerted)
+            if (awareness[key] > detectionTime && !alerted)
             {
                 if(key == GetPlayerInstanceId())
                 {
@@ -208,6 +212,7 @@ public class EnemyAwareness : MonoBehaviour
                 awareness.Remove(key);
                 detectionCooldown.Remove(key);
                 prevFrameTime.Remove(key);
+                detectionPercentage.Remove(key);
             }
         }
     }
