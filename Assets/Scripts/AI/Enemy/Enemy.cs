@@ -1,6 +1,7 @@
 using Platformer;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
@@ -10,13 +11,16 @@ public class Enemy : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private BoxCollider deadBodyCollider;
 
     private StateMachine stateMachine;
     private NavMeshAgent agent;
     private EnemyAwareness enemyAwareness;
+    private AwarenessVisualizer awarenessVisualizer;
     private FieldOfView fov;
     private Health health;
     private RigBuilder rigBuilder;
+    private CapsuleCollider capsuleCollider;
 
     private NpcGun gun;
 
@@ -33,10 +37,12 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemyAwareness = GetComponentInChildren<EnemyAwareness>();
+        awarenessVisualizer = GetComponentInChildren<AwarenessVisualizer>();
         fov = GetComponentInChildren<FieldOfView>();
         health = GetComponentInChildren<Health>();
         rigBuilder = GetComponentInChildren<RigBuilder>();
         gun = GetComponentInChildren<NpcGun>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         rigBuilder.enabled = false;
 
@@ -66,9 +72,18 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
-        if (health.health < 0)
+        if (health.health < 0 && isAlive)
         {
             isAlive = false;
+            capsuleCollider.enabled = false;
+            agent.height = 0;
+            agent.updatePosition = false;
+            agent.updateRotation = false;
+            deadBodyCollider.enabled = true;
+            awarenessVisualizer.enabled = false;
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 

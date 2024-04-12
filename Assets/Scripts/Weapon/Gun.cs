@@ -9,12 +9,17 @@ public class Gun : MonoBehaviour
     [SerializeField] protected Transform muzzle;
     [SerializeField] protected GameObject bullet;
 
+    [SerializeField] AudioSource gunAudioSource;
+
+    [SerializeField] AudioClip shootClip;
+    [SerializeField] AudioClip reloadStartClip;
+    [SerializeField] AudioClip reloadEndClip;
     private int currentAmmo;
+    private int ammoReserve = 30;
+
     private bool reloading = false;
 
     private bool triggerUp = false;
-
-    protected AudioSource audioSource;
 
     protected float timeSinceLastShot;
 
@@ -24,8 +29,10 @@ public class Gun : MonoBehaviour
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
         PlayerShoot.triggerUpInput += TriggerUp;
-        audioSource = GetComponentInChildren<AudioSource>();
     }
+
+    public int CurrentAmmo => currentAmmo;
+    public int AmmoReserve => ammoReserve;
 
     public void TriggerUp()
     {
@@ -43,12 +50,25 @@ public class Gun : MonoBehaviour
     private IEnumerator Reload()
     {
         reloading = true;
+        gunAudioSource.PlayOneShot(reloadStartClip);
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
-        currentAmmo = gunData.magSize;
+        int bulletsToFill = gunData.magSize - currentAmmo;
+
+        if(ammoReserve - bulletsToFill < 0)
+        {
+            currentAmmo = ammoReserve;
+            ammoReserve = 0;
+        }
+        else
+        {
+            ammoReserve -= bulletsToFill;
+            currentAmmo = gunData.magSize;
+        }
 
         reloading = false;
+        gunAudioSource.PlayOneShot(reloadEndClip);
     }
 
     protected bool CanShoot() => !reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
@@ -92,7 +112,7 @@ public class Gun : MonoBehaviour
                 currentBullet.GetComponent<BulletData>().SetShootDirection(muzzle.transform.forward);
                 currentAmmo--;
                 timeSinceLastShot = 0;
-                audioSource.PlayOneShot(audioSource.clip);
+                gunAudioSource.PlayOneShot(shootClip);
                 OnGunShot();
                 Debug.Log("shot callewd" + currentAmmo);
                 triggerUp = false;
