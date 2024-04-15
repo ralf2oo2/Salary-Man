@@ -8,12 +8,13 @@ using UnityEngine.UIElements;
 public class EnemyAwarenessIndicator : MonoBehaviour
 {
     // Start is called before the first frame update
-    RectTransform rTransform;
+    [SerializeField] RectTransform DetectionBar;
+    TextMeshProUGUI tmp;
     float originalHeight;
     void Start()
     {
-        rTransform = GetComponent<RectTransform>();
-        originalHeight = rTransform.sizeDelta.y;
+        tmp = GetComponentInChildren<TextMeshProUGUI>();
+        originalHeight = DetectionBar.sizeDelta.y;
     }
 
     // Update is called once per frame
@@ -21,6 +22,7 @@ public class EnemyAwarenessIndicator : MonoBehaviour
     {
         float detection = EnemyAwareness.GetGlobalPlayerDetection();
         if (detection > 100) detection = 100;
-        rTransform.sizeDelta = new Vector2(rTransform.sizeDelta.x, originalHeight * (detection / 100));
+        tmp.text = detection.ToString("0");
+        DetectionBar.sizeDelta = new Vector2(DetectionBar.sizeDelta.x, originalHeight * (detection / 100));
     }
 }

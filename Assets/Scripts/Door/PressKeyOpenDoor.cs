@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(Interactable))]
 public class PressKeyOpenDoor : MonoBehaviour
 {
     public GameObject Instruction;
@@ -11,13 +11,27 @@ public class PressKeyOpenDoor : MonoBehaviour
     public AudioSource DoorOpenSound;
     public bool Action = false;
 
+    private Interactable interactable;
+
     void Start()
     {
         Instruction.SetActive(false);
-
+        Interactable interactable = GetComponent<Interactable>();
+        interactable.SetAction(Interract);
     }
 
-    void OnTriggerEnter(Collider collision)
+    private void Interract()
+    {
+        Debug.Log("open door2");
+        //Instruction.SetActive(false);
+        AnimeObject.GetComponent<Animator>().Play("DoorOpen");
+        //ThisTrigger.SetActive(false);
+        DoorOpenSound.Play();
+        Action = false;
+        Debug.Log("open door");
+    }
+
+    /*void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player")
         {
@@ -30,24 +44,16 @@ public class PressKeyOpenDoor : MonoBehaviour
     {
         Instruction.SetActive(false);
         Action = false;
-    }
+    }*/
 
 
-    void Update()
+/*    void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Action == true)
-            {
-                Instruction.SetActive(false);
-                AnimeObject.GetComponent<Animator>().Play("DoorOpen");
-                ThisTrigger.SetActive(false);
-                DoorOpenSound.Play();
-                Action = false;
-            }
         }
 
-    }
+    }*/
 }
 
 

@@ -48,7 +48,6 @@ public class EnemyAwareness : MonoBehaviour
     public void MakeSuspicious()
     {
         suspicious = true;
-        Debug.Log("made suspicious");
     }
 
     public int GetPlayerInstanceId()
@@ -176,7 +175,6 @@ public class EnemyAwareness : MonoBehaviour
                         if (distanceModifier < 1) distanceModifier = 1;
 
                         visionMultiplier *= distanceModifier;
-                        Debug.Log("Aware of other thing");
 
                     }
                     awareness[key] += delta;

@@ -14,6 +14,7 @@ public class playerRaycast : MonoBehaviour
 
     public void OnUse()
     {
+        Debug.Log("intera2");
         if (PlayerPickupManager.HasPickupItem())
         {
             GameObject pickupItem = PlayerPickupManager.GetPickupItem();
@@ -41,6 +42,7 @@ public class playerRaycast : MonoBehaviour
             else if (hit.collider.TryGetComponent<Interactable>(out Interactable interactable))
             {
                 interactable.Interract();
+                Debug.Log("intera");
             }
         }
     }

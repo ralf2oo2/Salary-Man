@@ -5,6 +5,7 @@ using UnityEngine;
 public class door : MonoBehaviour
 {
     public bool IsOpen = false;
+    [SerializeField] GameObject hinge;
     [SerializeField]
     private bool IsRotatingDoor = true;
     [SerializeField]
@@ -28,10 +29,10 @@ public class door : MonoBehaviour
 
     private void Awake()
     {
-        StartRotation = transform.rotation.eulerAngles;
+        StartRotation = hinge.transform.rotation.eulerAngles;
         // Since "Forward" actually is pointing into the door frame, choose a direction to think about as "forward" 
-        Forward = transform.right;
-        StartPosition = transform.position;
+        Forward = hinge.transform.right;
+        StartPosition = hinge.transform.position;
     }
 
     public void Open(Vector3 UserPosition)
@@ -45,7 +46,7 @@ public class door : MonoBehaviour
 
             if (IsRotatingDoor)
             {
-                float dot = Vector3.Dot(Forward, (UserPosition - transform.position).normalized);
+                float dot = Vector3.Dot(Forward, (UserPosition - hinge.transform.position).normalized);
                 Debug.Log($"Dot: {dot.ToString("N3")}");
                 AnimationCoroutine = StartCoroutine(DoRotationOpen(dot));
             }
@@ -58,7 +59,7 @@ public class door : MonoBehaviour
 
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {
-        Quaternion startRotation = transform.rotation;
+        Quaternion startRotation = hinge.transform.rotation;
         Quaternion endRotation;
 
         if (ForwardAmount >= ForwardDirection)
@@ -70,12 +71,14 @@ public class door : MonoBehaviour
             endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - RotationAmount, 0));
         }
 
+        Debug.Log(endRotation + "we");
         IsOpen = true;
 
         float time = 0;
         while (time < 1)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            hinge.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            Debug.Log(startRotation + " -+- " + endRotation);
             yield return null;
             time += Time.deltaTime * Speed;
         }
@@ -84,13 +87,13 @@ public class door : MonoBehaviour
     private IEnumerator DoSlidingOpen()
     {
         Vector3 endPosition = StartPosition + SlideAmount * SlideDirection;
-        Vector3 startPosition = transform.position;
+        Vector3 startPosition = hinge.transform.position;
 
         float time = 0;
         IsOpen = true;
         while (time < 1)
         {
-            transform.position = Vector3.Lerp(startPosition, endPosition, time);
+            hinge.transform.position = Vector3.Lerp(startPosition, endPosition, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
@@ -118,7 +121,7 @@ public class door : MonoBehaviour
 
     private IEnumerator DoRotationClose()
     {
-        Quaternion startRotation = transform.rotation;
+        Quaternion startRotation = hinge.transform.rotation;
         Quaternion endRotation = Quaternion.Euler(StartRotation);
 
         IsOpen = false;
@@ -126,7 +129,7 @@ public class door : MonoBehaviour
         float time = 0;
         while (time < 1)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            hinge.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
@@ -135,14 +138,14 @@ public class door : MonoBehaviour
     private IEnumerator DoSlidingClose()
     {
         Vector3 endPosition = StartPosition;
-        Vector3 startPosition = transform.position;
+        Vector3 startPosition = hinge.transform.position;
         float time = 0;
 
         IsOpen = false;
 
         while (time < 1)
         {
-            transform.position = Vector3.Lerp(startPosition, endPosition, time);
+            hinge.transform.position = Vector3.Lerp(startPosition, endPosition, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
