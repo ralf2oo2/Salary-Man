@@ -1268,14 +1268,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442434290}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.707107, z: -0, w: 0.70710665}
-  m_LocalPosition: {x: -8.298992, y: 6.675, z: 0.984993}
-  m_LocalScale: {x: 1.2, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.61, y: 6.699, z: 0.322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1023864429}
   m_Father: {fileID: 208042972}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &446717946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,6 +1960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeInteraction: 0
+  interactionTime: 1
+  interactionText: 
+  AllowInteraction: 0
 --- !u!65 &658811910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2522,6 +2526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeInteraction: 0
+  interactionTime: 1
+  interactionText: 
+  AllowInteraction: 0
 --- !u!1001 &874364395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2903,8 +2911,8 @@ Transform:
   m_GameObject: {fileID: 1023864428}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.628, y: -1.301, z: -0}
-  m_LocalScale: {x: 1, y: 2.5, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.773}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1815054859}
@@ -7521,6 +7529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeInteraction: 0
+  interactionTime: 1
+  interactionText: 
+  AllowInteraction: 0
 --- !u!65 &1807015477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7651,8 +7663,8 @@ Transform:
   m_GameObject: {fileID: 1815054858}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.075, y: 0.495, z: 1.74}
-  m_LocalScale: {x: 1.2424, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.782}
+  m_LocalScale: {x: 0.069322, y: 2.5954983, z: 1.5036}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1023864429}
@@ -7740,11 +7752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91fef70c7fee934d9ca15c7c8ed2fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Instruction: {fileID: 0}
   AnimeObject: {fileID: 1023864428}
-  ThisTrigger: {fileID: 0}
   DoorOpenSound: {fileID: 1596069983}
-  Action: 0
+  IsLocked: 0
+  lockpickTime: 1
 --- !u!114 &1815054864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7757,6 +7768,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeInteraction: 1
+  interactionTime: 3
+  interactionText: Hold {InteractionButton} to pick the lock
+  AllowInteraction: 1
 --- !u!1001 &1817938064
 PrefabInstance:
   m_ObjectHideFlags: 0

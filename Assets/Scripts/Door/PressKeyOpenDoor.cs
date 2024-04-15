@@ -5,30 +5,31 @@ using UnityEngine;
 [RequireComponent(typeof(Interactable))]
 public class PressKeyOpenDoor : MonoBehaviour
 {
-    public GameObject Instruction;
+    //public GameObject Instruction;
     public GameObject AnimeObject;
-    public GameObject ThisTrigger;
+    //public GameObject ThisTrigger;
     public AudioSource DoorOpenSound;
-    public bool Action = false;
+    [SerializeField] bool IsLocked = false;
+    [SerializeField]  float lockpickTime = 1f;
 
     private Interactable interactable;
 
     void Start()
     {
-        Instruction.SetActive(false);
+        //Instruction.SetActive(false);
         Interactable interactable = GetComponent<Interactable>();
-        interactable.SetAction(Interract);
+        interactable.SetAction(OpenDoor);
     }
 
-    private void Interract()
+    private void OpenDoor()
     {
         Debug.Log("open door2");
         //Instruction.SetActive(false);
         AnimeObject.GetComponent<Animator>().Play("DoorOpen");
         //ThisTrigger.SetActive(false);
         DoorOpenSound.Play();
-        Action = false;
         Debug.Log("open door");
+        interactable.AllowInteraction = false;
     }
 
     /*void OnTriggerEnter(Collider collision)
