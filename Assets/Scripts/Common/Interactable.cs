@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour, IInteractable
     private float currentTime = 0f;
     public void Interract()
     {
+        if (!AllowInteraction) return;
         InteractionPercentage = 0;
         if (timeInteraction)
         {
@@ -38,11 +39,13 @@ public class Interactable : MonoBehaviour, IInteractable
 
     public void EndInterraction()
     {
-        Debug.Log("endinteraction");
         endAction?.Invoke();
         currentTime = 0f;
         IsInteracting = false;
-        StopCoroutine(interactCoroutine);
+        if (timeInteraction)
+        {
+            StopCoroutine(interactCoroutine);
+        }
     }
 
     public void SetAction(Action action)
@@ -59,9 +62,8 @@ public class Interactable : MonoBehaviour, IInteractable
             InteractionPercentage = currentTime / interactionTime * 100;
             if(InteractionPercentage > 100) InteractionPercentage = 100;
         }
-        interactionAction?.Invoke();
         IsInteracting = false;
-
+        interactionAction?.Invoke();
     }
 
     public void SetEndAction(Action action)

@@ -29,7 +29,6 @@ public class InteractionMeter : MonoBehaviour
         }
         radialImage.enabled = Interactable.IsInteracting;
         tmp.enabled = Interactable.IsInteracting;
-        Debug.Log(Mathf.Clamp(Interactable.InteractionPercentage, 0f, 1f));
         radialImage.fillAmount = Interactable.InteractionPercentage / 100;
     }
 }

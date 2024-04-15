@@ -7754,8 +7754,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimeObject: {fileID: 1023864428}
   DoorOpenSound: {fileID: 1596069983}
-  IsLocked: 0
-  lockpickTime: 1
 --- !u!114 &1815054864
 MonoBehaviour:
   m_ObjectHideFlags: 0
