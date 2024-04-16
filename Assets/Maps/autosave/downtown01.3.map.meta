@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c29e85added7abb488aa9cd4d94230cd
+guid: 66a6d367db0085944ad8311fe5d385ac
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,8 +47,7 @@ ScriptedImporter:
     castShadows: 2
     addScopaEntityComponent: 1
     callOnEntityImport: 1
-    entityPrefab: {fileID: 172729408042423377, guid: 0e351962c3c67b54d84b8d998035e8ab,
-      type: 3}
+    entityPrefab: {instanceID: 0}
     meshPrefab: {instanceID: 0}
     entityOverrides: []
     fgdAsset: {instanceID: 0}

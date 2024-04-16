@@ -49,5 +49,8 @@ ScriptedImporter:
     callOnEntityImport: 1
     entityPrefab: {instanceID: 0}
     meshPrefab: {instanceID: 0}
-    entityOverrides: []
+    entityOverrides:
+    - entityClassName: light
+      entityPrefab: {instanceID: 0}
+      meshPrefab: {instanceID: 0}
     fgdAsset: {instanceID: 0}
