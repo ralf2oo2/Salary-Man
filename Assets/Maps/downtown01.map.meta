@@ -36,7 +36,10 @@ ScriptedImporter:
     globalTexelScale: 1
     defaultTexSize: 128
     defaultMaterial: {instanceID: 0}
-    materialOverrides: []
+    materialOverrides:
+    - textureName: lamp
+      material: {fileID: 2100000, guid: d115ed44ccd3681409218559268d7696, type: 2}
+      materialConfig: {instanceID: 0}
     mergeToWorld:
     - func_group
     - func_detail
@@ -44,13 +47,10 @@ ScriptedImporter:
     - worldspawn
     - func_wall
     layer: 7
-    castShadows: 2
+    castShadows: 0
     addScopaEntityComponent: 1
     callOnEntityImport: 1
     entityPrefab: {instanceID: 0}
     meshPrefab: {instanceID: 0}
-    entityOverrides:
-    - entityClassName: light
-      entityPrefab: {instanceID: 0}
-      meshPrefab: {instanceID: 0}
+    entityOverrides: []
     fgdAsset: {instanceID: 0}
