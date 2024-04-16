@@ -1560,7 +1560,7 @@ PrefabInstance:
     - target: {fileID: 193423854529200418, guid: 321b7e132b2f7984eab8f09663b85714,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.47
+      value: 48.377
       objectReference: {fileID: 0}
     - target: {fileID: 193423854529200418, guid: 321b7e132b2f7984eab8f09663b85714,
         type: 3}
@@ -1965,7 +1965,7 @@ MonoBehaviour:
   interactionText: 
   AllowInteraction: 0
   checkState: 0
-  state: 
+  State: 
 --- !u!65 &658811910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2533,7 +2533,7 @@ MonoBehaviour:
   interactionText: Hold {InteractionButton} to pick up the code
   AllowInteraction: 1
   checkState: 0
-  state: 
+  State: 
 --- !u!1001 &874364395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7538,7 +7538,7 @@ MonoBehaviour:
   interactionText: Hold {InteractionButton} to pick enter the code
   AllowInteraction: 1
   checkState: 1
-  state: code
+  State: 
 --- !u!65 &1807015477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7777,7 +7777,7 @@ MonoBehaviour:
   interactionText: Hold {InteractionButton} to pick the lock
   AllowInteraction: 1
   checkState: 0
-  state: 
+  State: 
 --- !u!1001 &1817938064
 PrefabInstance:
   m_ObjectHideFlags: 0
