@@ -19,11 +19,15 @@ public class Interactable : MonoBehaviour, IInteractable
     [SerializeField] string interactionText = "";
 
     [SerializeField] public bool AllowInteraction = true;
+    [SerializeField] public bool checkState = false;
+
+    [SerializeField] public string State = "";
 
     private float currentTime = 0f;
     public void Interract()
     {
         if (!AllowInteraction) return;
+        Debug.Log("hit this");
         InteractionPercentage = 0;
         if (timeInteraction)
         {

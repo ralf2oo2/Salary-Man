@@ -59,9 +59,12 @@ public class playerRaycast : MonoBehaviour
                     {
                         if(interactable.AllowInteraction)
                         {
-                            currentInteractable = interactable;
-                            interactable.Interract();
-                            Debug.Log("intera");
+                            if(!interactable.checkState || !StateManager.states.ContainsKey(interactable.State) || !StateManager.states[interactable.State])
+                            {
+                                currentInteractable = interactable;
+                                interactable.Interract();
+                                Debug.Log("intera");
+                            }
                         }
                     }
                 }

@@ -1964,6 +1964,8 @@ MonoBehaviour:
   interactionTime: 1
   interactionText: 
   AllowInteraction: 0
+  checkState: 0
+  state: 
 --- !u!65 &658811910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2526,10 +2528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeInteraction: 0
-  interactionTime: 1
-  interactionText: 
-  AllowInteraction: 0
+  timeInteraction: 1
+  interactionTime: 2
+  interactionText: Hold {InteractionButton} to pick up the code
+  AllowInteraction: 1
+  checkState: 0
+  state: 
 --- !u!1001 &874364395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7529,10 +7533,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c064f96784429644bb3d18a4c38e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeInteraction: 0
-  interactionTime: 1
-  interactionText: 
-  AllowInteraction: 0
+  timeInteraction: 1
+  interactionTime: 5
+  interactionText: Hold {InteractionButton} to pick enter the code
+  AllowInteraction: 1
+  checkState: 1
+  state: code
 --- !u!65 &1807015477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7770,6 +7776,8 @@ MonoBehaviour:
   interactionTime: 3
   interactionText: Hold {InteractionButton} to pick the lock
   AllowInteraction: 1
+  checkState: 0
+  state: 
 --- !u!1001 &1817938064
 PrefabInstance:
   m_ObjectHideFlags: 0
