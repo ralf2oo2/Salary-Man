@@ -9,6 +9,7 @@ public class Level1Init : MonoBehaviour
     void Start()
     {
         ObjectiveManager.SetObjective("Try to find a way into the building");
+        StateManager.states.Clear();
     }
 
     private IEnumerator SetCodeLocation()
