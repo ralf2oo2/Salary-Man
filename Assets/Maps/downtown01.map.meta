@@ -29,9 +29,9 @@ ScriptedImporter:
     colliderMode: 3
     nonsolidEntities:
     - illusionary
+    - water
     triggerEntities:
     - trigger
-    - water
     findMaterials: 1
     globalTexelScale: 1
     defaultTexSize: 128
