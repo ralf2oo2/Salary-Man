@@ -59,7 +59,7 @@ public class playerRaycast : MonoBehaviour
                     {
                         if(interactable.AllowInteraction)
                         {
-                            if(!interactable.checkState || !StateManager.states.ContainsKey(interactable.State) || !StateManager.states[interactable.State])
+                            if(!interactable.checkState || StateManager.states.ContainsKey(interactable.State) && StateManager.states[interactable.State])
                             {
                                 currentInteractable = interactable;
                                 interactable.Interract();

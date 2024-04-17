@@ -30,6 +30,11 @@ public class PressKeyOpenDoor : MonoBehaviour
         Debug.Log("open door");
     }
 
+    public void ForceOpen()
+    {
+        OpenDoor();
+    }
+
     /*void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player")

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class OpenGateConditional : MonoBehaviour
 {
-    [SerializeField] string state;
-    [SerializeField] GameObject door;
+    [SerializeField] PressKeyOpenDoor door;
+    [SerializeField] Light EnabledLight;
+    [SerializeField] Light DisabledLight;
     Interactable interactable;
     // Start is called before the first frame update
     void Start()
@@ -16,15 +17,8 @@ public class OpenGateConditional : MonoBehaviour
 
     private void Interract()
     {
-        if (door != null)
-        {
-            if (StateManager.states.ContainsKey(state))
-            {
-                if (StateManager.states[state])
-                {
-                    GameObject.Destroy(door);
-                }
-            }
-        }
+        door.ForceOpen();
+        DisabledLight.enabled = false;
+        EnabledLight.enabled = true;
     }
 }

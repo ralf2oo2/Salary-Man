@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
 
     Vector3 GetMovementInput()
     {
+        if (Interactable.IsInteracting) return Vector3.zero;
         var moveInput = moveAction.ReadValue<Vector2>();
         var input = new Vector3();
         input += transform.forward * moveInput.y;
