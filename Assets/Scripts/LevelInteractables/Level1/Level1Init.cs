@@ -15,7 +15,10 @@ public class Level1Init : MonoBehaviour
     private IEnumerator SetCodeLocation()
     {
         yield return new WaitForSeconds(5);
-        GameObject.FindGameObjectWithTag("Code").transform.position = CodeSpawnPoint.codeSpawnPoints[Random.Range(0, CodeSpawnPoint.codeSpawnPoints.Count - 1)].transform.position;
+        if(this != null)
+        {
+            GameObject.FindGameObjectWithTag("Code").transform.position = CodeSpawnPoint.codeSpawnPoints[Random.Range(0, CodeSpawnPoint.codeSpawnPoints.Count - 1)].transform.position;
+        }
     }
 
     private void Update()

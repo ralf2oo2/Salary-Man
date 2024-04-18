@@ -54,8 +54,7 @@ public class Player : MonoBehaviour
 
     private void OnDeath()
     {
-        /*string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);*/
+        GameObject.FindGameObjectWithTag("Restart").GetComponent<RestartMenu>().ShowScreen();
     }
 
     private void Start()

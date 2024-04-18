@@ -4,56 +4,28 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class RestartMenu : MonoBehaviour
 {
     private PlayerInput playerInput;
-    public static bool isPaused = false;
-    public GameObject pauseMenuUI;
+    public GameObject restartUI;
 
     private void Start()
     {
         playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowScreen()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-    }
-
-    public void Resume()
-    {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-        playerInput.ActivateInput();
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    void Pause()
-    {
-        pauseMenuUI.SetActive(true);
+        restartUI.SetActive(true);
         Time.timeScale = 0f;
-        isPaused = true;
         playerInput.DeactivateInput();
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void Restart()
     {
-        pauseMenuUI.SetActive(false);
+        restartUI.SetActive(false);
         Time.timeScale = 1f;
-        isPaused = false;
         playerInput.ActivateInput();
         Cursor.lockState = CursorLockMode.Locked;
         string currentSceneName = SceneManager.GetActiveScene().name;

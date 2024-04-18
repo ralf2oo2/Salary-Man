@@ -31,6 +31,13 @@ public class Gun : MonoBehaviour
         PlayerShoot.triggerUpInput += TriggerUp;
     }
 
+    private void OnDestroy()
+    {
+        PlayerShoot.shootInput -= Shoot;
+        PlayerShoot.reloadInput -= StartReload;
+        PlayerShoot.triggerUpInput -= TriggerUp;
+    }
+
     public int CurrentAmmo => currentAmmo;
     public int AmmoReserve => ammoReserve;
 
@@ -41,7 +48,7 @@ public class Gun : MonoBehaviour
 
     public void StartReload()
     {
-        if (!reloading)
+        if (!reloading && this != null)
         {
             StartCoroutine(Reload());
         }
@@ -49,32 +56,40 @@ public class Gun : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        reloading = true;
-        gunAudioSource.PlayOneShot(reloadStartClip);
-
-        yield return new WaitForSeconds(gunData.reloadTime);
-
-        int bulletsToFill = gunData.magSize - currentAmmo;
-
-        if(ammoReserve - bulletsToFill < 0)
+        if(this == null)
         {
-            currentAmmo = ammoReserve;
-            ammoReserve = 0;
+            yield return null;
         }
         else
         {
-            ammoReserve -= bulletsToFill;
-            currentAmmo = gunData.magSize;
-        }
+            reloading = true;
+            gunAudioSource.PlayOneShot(reloadStartClip);
 
-        reloading = false;
-        gunAudioSource.PlayOneShot(reloadEndClip);
+            yield return new WaitForSeconds(gunData.reloadTime);
+
+            int bulletsToFill = gunData.magSize - currentAmmo;
+
+            if (ammoReserve - bulletsToFill < 0)
+            {
+                currentAmmo = ammoReserve;
+                ammoReserve = 0;
+            }
+            else
+            {
+                ammoReserve -= bulletsToFill;
+                currentAmmo = gunData.magSize;
+            }
+
+            reloading = false;
+            gunAudioSource.PlayOneShot(reloadEndClip);
+        }
     }
 
     protected bool CanShoot() => !reloading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
     public virtual void Shoot()
     {
+        if (this == null || muzzle == null || gunData == null || bullet == null) return;
         if(!triggerUp && !gunData.automatic)
         {
             return;
