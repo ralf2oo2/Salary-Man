@@ -7,6 +7,7 @@ public class HeartrateMonitor : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip beep;
     [SerializeField] AudioClip flatline;
+    [SerializeField] GameObject gate;
 
     private bool flatlining = false;
     private float delay = 1f;
@@ -27,6 +28,7 @@ public class HeartrateMonitor : MonoBehaviour
             currentTime = 0f;
             if (flatlining)
             {
+                gate.SetActive(true);
                 delay -= 0.1f;
             }
         }
@@ -37,6 +39,7 @@ public class HeartrateMonitor : MonoBehaviour
             audioSource.Play();
             isDead = true;
             StateManager.states.Add("escape", true);
+            ObjectiveManager.SetObjective("Escape");
         }
         currentTime += Time.deltaTime;
     }
