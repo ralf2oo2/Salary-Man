@@ -28,13 +28,13 @@ public class RestartMenu : MonoBehaviour
         Time.timeScale = 1f;
         playerInput.ActivateInput();
         Cursor.lockState = CursorLockMode.Locked;
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneName, LoadSceneMode.Single);
     }
 
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

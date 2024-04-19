@@ -62,6 +62,8 @@ public class Enemy : MonoBehaviour
         Any(deadState, new FuncPredicate(() => !isAlive));
 
         stateMachine.SetState(patrolState);
+
+        DontDestroyOnLoad(patrolRoute);
     }
 
     void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);

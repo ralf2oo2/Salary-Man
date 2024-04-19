@@ -10,6 +10,7 @@ public class CodeSpawnPoint : MonoBehaviour
     {
         codeSpawnPoints.Add(this);
         spawnPoint = transform.position;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

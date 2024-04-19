@@ -38,10 +38,10 @@ public class PatrolState : EnemyBaseState
 
     public void PatrolCycle()
     {
-        if (enemy.patrolRoute == null) return;
+        if (enemy.patrolRoute == null || enemy.patrolRoute.waypoints == null) return;
         if (enemy.Agent.remainingDistance < 0.2f)
         {
-            if (waypointIndex < enemy.patrolRoute.waypoints.Count - 1)
+            if (waypointIndex < enemy.patrolRoute.waypoints.Count - 1 && enemy.patrolRoute.waypoints.Count > 0)
             {
                 waypointIndex++;
             }
@@ -49,6 +49,7 @@ public class PatrolState : EnemyBaseState
             {
                 waypointIndex = 0;
             }
+            if (enemy.patrolRoute == null || enemy.patrolRoute.waypoints == null || waypointIndex > enemy.patrolRoute.waypoints.Count - 1) return;
             enemy.Agent.SetDestination(enemy.patrolRoute.waypoints[waypointIndex].position);
         }
     }
