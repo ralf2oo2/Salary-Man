@@ -35,7 +35,7 @@ ScriptedImporter:
     findMaterials: 1
     globalTexelScale: 1
     defaultTexSize: 128
-    defaultMaterial: {fileID: 2100000, guid: d5d9572bb9a6a7c479daeea1121b8e69, type: 2}
+    defaultMaterial: {instanceID: 0}
     materialOverrides: []
     mergeToWorld:
     - func_group
@@ -47,7 +47,8 @@ ScriptedImporter:
     castShadows: 2
     addScopaEntityComponent: 1
     callOnEntityImport: 1
-    entityPrefab: {instanceID: 0}
+    entityPrefab: {fileID: 172729408042423377, guid: 0e351962c3c67b54d84b8d998035e8ab,
+      type: 3}
     meshPrefab: {instanceID: 0}
     entityOverrides: []
     fgdAsset: {instanceID: 0}

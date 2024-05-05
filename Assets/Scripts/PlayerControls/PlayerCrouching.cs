@@ -8,6 +8,7 @@ public class PlayerCrouching : MonoBehaviour
     [SerializeField] float crouchHeight = 2f;
     [SerializeField] float crouchTransitionSpeed = 10f;
     [SerializeField] float crouchSpeedMultiplier = 0.5f;
+    [SerializeField] float crouchStepMultiplier = 1.5f;
     Player player;
     PlayerInput playerInput;
     InputAction crouchAction;
@@ -16,7 +17,7 @@ public class PlayerCrouching : MonoBehaviour
     float currentHeight;
     float standingHeight;
 
-    bool IsCrouching => standingHeight - currentHeight > 0.1f;
+    public bool IsCrouching => standingHeight - currentHeight > 0.1f;
 
     void Awake()
     {
@@ -68,6 +69,7 @@ public class PlayerCrouching : MonoBehaviour
         if (IsCrouching)
         {
             player.movementSpeedMultiplier *= crouchSpeedMultiplier;
+            player.stepSpeed *= crouchStepMultiplier;
         }
     }
 }

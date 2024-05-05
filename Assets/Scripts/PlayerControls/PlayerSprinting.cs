@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerSprinting : MonoBehaviour
 {
     [SerializeField] float speedMultiplier = 2f;
+    [SerializeField] float sprintStepMultiplier = 0.6f;
     Player player;
     PlayerInput playerInput;
     InputAction sprintAction;
@@ -30,5 +31,6 @@ public class PlayerSprinting : MonoBehaviour
         );
         var multiplier = Mathf.Lerp(1f, speedMultiplier, forwardMovementFactor);
         player.movementSpeedMultiplier *= multiplier;
+        player.stepSpeed *= sprintStepMultiplier;
     }
 }
